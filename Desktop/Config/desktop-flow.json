@@ -1,0 +1,24 @@
+{
+  "InitialView": "main_menu",
+  "DefaultLoadingMilliseconds": 650,
+  "Transitions": {
+    "server_started": {
+      "From": "server_settings",
+      "To": "chat_lobby",
+      "HeaderText": "Starting Server",
+      "ContentText": "Preparing the server for the chat lobby."
+    },
+    "start_match": {
+      "From": "chat_lobby",
+      "To": "match",
+      "HeaderText": "Starting Match",
+      "ContentText": "Loading match state and preparing the server dashboard."
+    },
+    "return_to_lobby": {
+      "From": "match",
+      "To": "chat_lobby",
+      "HeaderText": "Returning To Lobby",
+      "ContentText": "Closing the match view and refreshing lobby state."
+    }
+  }
+}

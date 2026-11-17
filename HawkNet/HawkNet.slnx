@@ -1,0 +1,11 @@
+<Solution>
+  <Project Path="HawkNet.csproj" />
+  <Project Path="..\ClanIronSim\ClanIronSim.csproj" />
+  <Project Path="..\ClanIronSim.HawkNet\ClanIronSim.HawkNet.csproj" />
+  <Project Path="..\ClanIronSim.CoreUx\ClanIronSim.CoreUx.csproj" />
+  <Project Path="..\CoreUx\CoreUx.csproj" />
+  <Project Path="..\Desktop\Desktop.csproj" />
+  <Project Path="..\HawkNet.Tests\HawkNet.Tests.csproj" />
+  <Project Path="..\HawkNet.CommandLine\HawkNet.CommandLine.csproj" />
+  <Project Path="..\ClanIronSim.CommandLine\ClanIronSim.CommandLine.csproj" />
+</Solution>

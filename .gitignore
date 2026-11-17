@@ -136,3 +136,26 @@ crashlytics-build.properties
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# HawkNet .NET projects (these files are authored, not Unity-generated)
+!*.csproj
+!*.sln
+!*.slnx
+**/[Bb]in/
+**/[Oo]bj/
+**/TestResults/
+*.dmp
+.idea/
+.env
+.env.*
+!.env.example
+
+# Local agent notes, QA artifacts, and unrelated workspace files
+/.agents/
+/output/
+/tmp/
+/resume_qa*/
+/build_resume_2026.py
+/update_resume.py
+/tile-editor-capture.png
+/tile-editor-comparison.png

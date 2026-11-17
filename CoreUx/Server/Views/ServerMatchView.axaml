@@ -1,0 +1,319 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:commonVm="using:HawkNet.CoreUx.Common.ViewModels"
+             xmlns:clientViews="using:HawkNet.CoreUx.Client.Views"
+             xmlns:vm="using:HawkNet.CoreUx.Server.ViewModels"
+             x:Class="HawkNet.CoreUx.Server.Views.ServerMatchView"
+             x:DataType="vm:ServerMatchViewModel">
+  <UserControl.Styles>
+    <Style Selector="Button.nav">
+      <Setter Property="HorizontalContentAlignment" Value="Left" />
+      <Setter Property="Padding" Value="18,14" />
+      <Setter Property="Margin" Value="0,2" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderThickness" Value="3,0,0,0" />
+      <Setter Property="BorderBrush" Value="Transparent" />
+      <Setter Property="FontWeight" Value="Normal" />
+    </Style>
+    <Style Selector="Button.nav:pointerover">
+      <Setter Property="Background" Value="#202A32" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
+    </Style>
+    <Style Selector="Button.row">
+      <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="Padding" Value="8" />
+      <Setter Property="FontWeight" Value="Normal" />
+      <Setter Property="CornerRadius" Value="0" />
+    </Style>
+    <Style Selector="Border.inspector-divider">
+      <Setter Property="BorderBrush" Value="{DynamicResource PanelBorderBrush}" />
+      <Setter Property="BorderThickness" Value="0,0,0,1" />
+    </Style>
+  </UserControl.Styles>
+
+  <Grid RowDefinitions="64,*" Background="{DynamicResource AppBackgroundBrush}">
+    <!-- Live server status -->
+    <Border Grid.Row="0"
+            Background="#0B1014"
+            BorderBrush="{DynamicResource PanelBorderBrush}"
+            BorderThickness="0,0,0,1"
+            Padding="20,0">
+      <Grid ColumnDefinitions="Auto,24,Auto,28,Auto,28,Auto,28,Auto,*,Auto"
+            VerticalAlignment="Center">
+        <TextBlock Grid.Column="0"
+                   Text="HawkNet Server"
+                   FontSize="20"
+                   FontWeight="SemiBold"
+                   Foreground="{DynamicResource AppForegroundBrush}" />
+        <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="7" VerticalAlignment="Center">
+          <Ellipse Width="9" Height="9" Fill="#67D45C" />
+		  <TextBlock Text="{Binding ServerStateText}" Foreground="#7FE273" />
+        </StackPanel>
+        <StackPanel Grid.Column="4" Spacing="2">
+          <TextBlock Text="GAME TIME" Classes="field-label" />
+          <TextBlock Text="{Binding GameTimeText}" FontSize="16" FontWeight="SemiBold" />
+        </StackPanel>
+        <StackPanel Grid.Column="6" Spacing="2">
+          <TextBlock Text="ENDS AT" Classes="field-label" />
+          <TextBlock Text="{Binding MatchEndsAtText}" FontSize="16" FontWeight="SemiBold" />
+        </StackPanel>
+        <StackPanel Grid.Column="8" Spacing="2">
+          <TextBlock Text="PLAYERS" Classes="field-label" />
+          <TextBlock Text="{Binding PlayerCountText}" FontSize="16" FontWeight="SemiBold" />
+        </StackPanel>
+        <Button Grid.Column="10"
+                Classes="danger"
+                Command="{Binding StopServerCommand}"
+                Content="Emergency Stop"
+                Padding="14,8" />
+      </Grid>
+    </Border>
+
+    <Grid Grid.Row="1" ColumnDefinitions="108,*,370">
+      <!-- Inspector navigation -->
+      <Border Grid.Column="0"
+              Background="#0D1318"
+              BorderBrush="{DynamicResource PanelBorderBrush}"
+              BorderThickness="0,0,1,0">
+        <Grid RowDefinitions="*,Auto" Margin="0,12">
+          <StackPanel Grid.Row="0">
+            <Button Classes="nav" Command="{Binding ShowMapInspectorCommand}" Content="Map" />
+            <Button Classes="nav" Command="{Binding ShowPlayersInspectorCommand}" Content="Players" />
+            <Button Classes="nav" Command="{Binding ShowEventsInspectorCommand}" Content="Events" />
+            <Button Classes="nav" Command="{Binding ShowAdminInspectorCommand}" Content="Admin" />
+            <Button Classes="nav" Command="{Binding ShowSettingsInspectorCommand}" Content="Settings" />
+          </StackPanel>
+          <StackPanel Grid.Row="1" Margin="16,0" Spacing="4">
+			<TextBlock Text="{Binding ServerHealthText}" Foreground="#7FE273" FontSize="11" />
+            <TextBlock Text="{Binding World.RegionName}" Classes="status" TextTrimming="CharacterEllipsis" />
+          </StackPanel>
+        </Grid>
+      </Border>
+
+      <!-- Interactive world canvas -->
+      <Grid Grid.Column="1" ClipToBounds="True">
+        <Border Background="#12181E">
+          <clientViews:WorldMapView x:Name="WorldMap" World="{Binding World}" />
+        </Border>
+
+        <StackPanel HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Margin="18"
+                    Spacing="4">
+          <Button Content="+" Click="ZoomInClicked" Width="38" Height="38" Padding="0" FontSize="20" />
+          <Button Content="-" Click="ZoomOutClicked" Width="38" Height="38" Padding="0" FontSize="20" />
+          <Button Content="Reset" Click="ResetMapClicked" Padding="8,6" />
+        </StackPanel>
+
+        <Border HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="18"
+                Padding="12,9"
+                CornerRadius="4"
+                Background="#E60B1116"
+                BorderBrush="{DynamicResource PanelBorderBrush}"
+                BorderThickness="1">
+          <StackPanel Spacing="8">
+            <TextBlock Text="Layers" FontWeight="SemiBold" />
+            <WrapPanel>
+              <CheckBox Content="Paths" Margin="0,0,12,0" IsChecked="{Binding World.ShowMovementPaths, Mode=TwoWay}" />
+              <CheckBox Content="Server" Margin="0,0,12,0" IsChecked="{Binding World.ShowServerPositionMarkers, Mode=TwoWay}" />
+              <CheckBox Content="Render" IsChecked="{Binding World.ShowRenderPositionMarkers, Mode=TwoWay}" />
+            </WrapPanel>
+          </StackPanel>
+        </Border>
+
+        <Border HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Margin="18"
+                Padding="12,7"
+                CornerRadius="4"
+                Background="#E60B1116"
+                BorderBrush="{DynamicResource PanelBorderBrush}"
+                BorderThickness="1">
+          <TextBlock Text="{Binding World.StatusText}" Classes="status" TextTrimming="CharacterEllipsis" MaxWidth="520" />
+        </Border>
+
+        <Border IsVisible="{Binding HasSelectedPlayer}"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Width="270"
+                Margin="0,0,20,0"
+                Padding="14"
+                CornerRadius="5"
+                Background="#F20B1116"
+                BorderBrush="{DynamicResource AccentBrush}"
+                BorderThickness="1">
+          <StackPanel Spacing="9">
+            <TextBlock Text="{Binding SelectedPlayerName}" FontSize="17" FontWeight="SemiBold" />
+            <Grid ColumnDefinitions="*,Auto">
+              <TextBlock Text="Status" Classes="field-label" />
+              <TextBlock Grid.Column="1" Text="{Binding SelectedMovementStatus}" />
+            </Grid>
+            <Grid ColumnDefinitions="*,Auto">
+              <TextBlock Text="Position" Classes="field-label" />
+              <TextBlock Grid.Column="1" Text="{Binding SelectedServerPositionText}" />
+            </Grid>
+            <Grid ColumnDefinitions="*,Auto">
+              <TextBlock Text="Destination" Classes="field-label" />
+              <TextBlock Grid.Column="1" Text="{Binding SelectedDestinationText}" />
+            </Grid>
+          </StackPanel>
+        </Border>
+      </Grid>
+
+      <!-- Menu-controlled inspector with persistent chat -->
+      <Border Grid.Column="2"
+              Background="#11181E"
+              BorderBrush="{DynamicResource PanelBorderBrush}"
+              BorderThickness="1,0,0,0">
+        <Grid RowDefinitions="*,300">
+          <Grid Grid.Row="0">
+            <Grid IsVisible="{Binding IsPlayersInspectorVisible}" RowDefinitions="Auto,Auto,*,Auto">
+              <Border Classes="inspector-divider" Padding="16,14">
+                <Grid ColumnDefinitions="*,Auto">
+                  <TextBlock Text="Players" FontSize="18" FontWeight="SemiBold" />
+                  <TextBlock Grid.Column="1" Text="{Binding PlayerCountText}" Classes="status" />
+                </Grid>
+              </Border>
+              <StackPanel Grid.Row="1" Margin="14,12" Spacing="8">
+                <TextBox Text="{Binding PlayerSearchText, Mode=TwoWay}" PlaceholderText="Search players" />
+				<CheckBox Content="Connected only" IsChecked="{Binding ConnectedPlayersOnly, Mode=TwoWay}" />
+                <TextBlock Text="ONLINE PLAYERS" Classes="field-label" />
+              </StackPanel>
+              <ScrollViewer Grid.Row="2">
+                <ItemsControl ItemsSource="{Binding FilteredPlayers}">
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="commonVm:MatchPlayerViewModel">
+                      <Button Classes="row" Command="{Binding SelectCommand}">
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="9">
+                          <Ellipse Width="8" Height="8" Fill="#67D45C" VerticalAlignment="Center" />
+                          <StackPanel Grid.Column="1">
+                            <TextBlock Text="{Binding DisplayName}" TextTrimming="CharacterEllipsis" />
+                            <TextBlock Text="{Binding PlayerId, StringFormat='ID {0}'}" Classes="field-label" />
+                          </StackPanel>
+                          <TextBlock Grid.Column="2" Text="{Binding ConnectionText}" Classes="status" VerticalAlignment="Center" />
+                        </Grid>
+                      </Button>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+              </ScrollViewer>
+              <Border Grid.Row="3" Classes="inspector-divider" BorderThickness="0,1,0,0" Padding="14" IsVisible="{Binding HasSelectedPlayer}">
+                <StackPanel Spacing="8">
+                  <TextBlock Text="{Binding SelectedPlayerName}" FontSize="16" FontWeight="SemiBold" />
+                  <Grid ColumnDefinitions="*,Auto">
+                    <TextBlock Text="Player ID" Classes="field-label" />
+                    <TextBlock Grid.Column="1" Text="{Binding SelectedPlayerIdText}" />
+                  </Grid>
+                  <Grid ColumnDefinitions="*,Auto">
+                    <TextBlock Text="Position" Classes="field-label" />
+                    <TextBlock Grid.Column="1" Text="{Binding SelectedServerPositionText}" />
+                  </Grid>
+                </StackPanel>
+              </Border>
+            </Grid>
+
+            <ScrollViewer IsVisible="{Binding IsMapInspectorVisible}">
+              <StackPanel Margin="16" Spacing="14">
+                <TextBlock Text="Map" FontSize="18" FontWeight="SemiBold" />
+                <TextBlock Text="{Binding World.RegionName}" Classes="status" />
+				<Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+				  <ComboBox ItemsSource="{Binding Regions}" SelectedItem="{Binding SelectedRegion}" DisplayMemberBinding="{Binding DisplayName}" />
+				  <Button Grid.Column="1" Content="View" Command="{Binding SelectRegionCommand}" />
+				</Grid>
+                <CheckBox Content="Movement paths" IsChecked="{Binding World.ShowMovementPaths, Mode=TwoWay}" />
+                <CheckBox Content="Server positions" IsChecked="{Binding World.ShowServerPositionMarkers, Mode=TwoWay}" />
+                <CheckBox Content="Render positions" IsChecked="{Binding World.ShowRenderPositionMarkers, Mode=TwoWay}" />
+                <CheckBox Content="Correction labels" IsChecked="{Binding World.ShowCorrectionLabels, Mode=TwoWay}" />
+              </StackPanel>
+            </ScrollViewer>
+
+            <ScrollViewer IsVisible="{Binding IsEventsInspectorVisible}">
+              <StackPanel Margin="16" Spacing="14">
+                <TextBlock Text="Events" FontSize="18" FontWeight="SemiBold" />
+				<TextBlock Text="{Binding ListenEndpointText}" Classes="status" />
+				<TextBlock Text="{Binding InboxStatusText}" Classes="status" />
+				<TextBlock Text="{Binding UdpStatusText}" Classes="status" />
+				<ItemsControl ItemsSource="{Binding RuntimeEvents}">
+				  <ItemsControl.ItemTemplate>
+					<DataTemplate><Border Classes="inspector-divider" Padding="0,8"><TextBlock Text="{Binding}" TextWrapping="Wrap" /></Border></DataTemplate>
+				  </ItemsControl.ItemTemplate>
+				</ItemsControl>
+              </StackPanel>
+            </ScrollViewer>
+
+            <ScrollViewer IsVisible="{Binding IsAdminInspectorVisible}">
+              <StackPanel Margin="16" Spacing="16">
+                <TextBlock Text="Admin Controls" FontSize="18" FontWeight="SemiBold" />
+                <TextBlock Text="MATCH" Classes="field-label" />
+                <Grid ColumnDefinitions="*,Auto">
+                  <StackPanel>
+                    <TextBlock Text="Stop match" />
+                    <TextBlock Text="Return all players to the lobby" Classes="status" />
+                  </StackPanel>
+                  <Button Grid.Column="1" Classes="danger" Command="{Binding StopMatchCommand}" Content="Stop" />
+                </Grid>
+                <Border BorderBrush="{DynamicResource PanelBorderBrush}" BorderThickness="0,1,0,0" />
+                <Grid ColumnDefinitions="*,Auto">
+                  <StackPanel>
+                    <TextBlock Text="Stop server" Foreground="{DynamicResource DangerHoverBrush}" />
+                    <TextBlock Text="Disconnect players and shut down" Classes="status" />
+                  </StackPanel>
+                  <Button Grid.Column="1" Classes="danger" Command="{Binding StopServerCommand}" Content="Stop" />
+                </Grid>
+              </StackPanel>
+            </ScrollViewer>
+
+            <ScrollViewer IsVisible="{Binding IsSettingsInspectorVisible}">
+              <StackPanel Margin="16" Spacing="14">
+                <TextBlock Text="Settings" FontSize="18" FontWeight="SemiBold" />
+                <TextBlock Text="DISPLAY" Classes="field-label" />
+                <CheckBox Content="Show movement paths" IsChecked="{Binding World.ShowMovementPaths, Mode=TwoWay}" />
+                <CheckBox Content="Show correction diagnostics" IsChecked="{Binding World.ShowCorrectionLabels, Mode=TwoWay}" />
+                <TextBlock Text="RUNTIME" Classes="field-label" Margin="0,8,0,0" />
+                <Grid ColumnDefinitions="*,Auto">
+                  <TextBlock Text="Phase" Classes="status" />
+                  <TextBlock Grid.Column="1" Text="{Binding PhaseText}" />
+                </Grid>
+                <Grid ColumnDefinitions="*,Auto">
+                  <TextBlock Text="Phase time" Classes="status" />
+                  <TextBlock Grid.Column="1" Text="{Binding PhaseTimeText}" />
+                </Grid>
+              </StackPanel>
+            </ScrollViewer>
+          </Grid>
+
+          <Border Grid.Row="1" BorderBrush="{DynamicResource PanelBorderBrush}" BorderThickness="0,1,0,0">
+            <Grid Margin="14" RowDefinitions="Auto,*,Auto,Auto" RowSpacing="9">
+              <TextBlock Text="Chat History" FontSize="16" FontWeight="SemiBold" />
+              <ScrollViewer Grid.Row="1">
+                <ItemsControl ItemsSource="{Binding ChatMessages}">
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="commonVm:ChatMessageViewModel">
+                      <Grid Margin="0,0,0,7" ColumnDefinitions="Auto,*" ColumnSpacing="8">
+                        <TextBlock Text="{Binding TimestampText}" Classes="field-label" />
+                        <TextBlock Grid.Column="1" Text="{Binding SenderLabel}" FontWeight="SemiBold" Foreground="{Binding SenderBrush}" />
+                        <TextBlock Grid.Column="1" Margin="0,18,0,0" Text="{Binding Message}" TextWrapping="Wrap" />
+                      </Grid>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+              </ScrollViewer>
+              <TextBlock Grid.Row="2" Text="BROADCAST TO ALL PLAYERS" Classes="field-label" />
+              <Grid Grid.Row="3" ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                <TextBox Text="{Binding PendingMessage, Mode=TwoWay}" PlaceholderText="Broadcast message">
+                  <TextBox.KeyBindings>
+                    <KeyBinding Gesture="Enter" Command="{Binding SendMessageCommand}" />
+                  </TextBox.KeyBindings>
+                </TextBox>
+                <Button Grid.Column="1" Classes="primary" Command="{Binding SendMessageCommand}" Content="Send" />
+              </Grid>
+            </Grid>
+          </Border>
+        </Grid>
+      </Border>
+    </Grid>
+  </Grid>
+</UserControl>

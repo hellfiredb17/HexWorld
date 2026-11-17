@@ -1,0 +1,177 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:HawkNet.CoreUx.Common.LayerSelection"
+             x:Class="HawkNet.CoreUx.Common.LayerSelection.LayerSelectionView"
+             x:DataType="local:LayerSelectionViewModel"
+             MinWidth="780"
+             MinHeight="520">
+  <UserControl.Resources>
+    <SolidColorBrush x:Key="ComboBoxDropDownGlyphForeground" Color="#EEF3F7" />
+    <SolidColorBrush x:Key="ComboBoxDropDownGlyphForegroundPointerOver" Color="#EEF3F7" />
+    <SolidColorBrush x:Key="ComboBoxDropDownGlyphForegroundPressed" Color="#EEF3F7" />
+    <SolidColorBrush x:Key="ComboBoxDropDownGlyphForegroundFocused" Color="#EEF3F7" />
+    <!-- Path data from Microsoft Fluent UI System Icons, MIT licensed. -->
+    <StreamGeometry x:Key="DismissIcon">M4.39705 4.55379L4.46967 4.46967C4.73594 4.2034 5.1526 4.1792 5.44621 4.39705L5.53033 4.46967L12 10.939L18.4697 4.46967C18.7626 4.17678 19.2374 4.17678 19.5303 4.46967C19.8232 4.76256 19.8232 5.23744 19.5303 5.53033L13.061 12L19.5303 18.4697C19.7966 18.7359 19.8208 19.1526 19.6029 19.4462L19.5303 19.5303C19.2641 19.7966 18.8474 19.8208 18.5538 19.6029L18.4697 19.5303L12 13.061L5.53033 19.5303C5.23744 19.8232 4.76256 19.8232 4.46967 19.5303C4.17678 19.2374 4.17678 18.7626 4.46967 18.4697L10.939 12L4.46967 5.53033C4.2034 5.26406 4.1792 4.8474 4.39705 4.55379L4.46967 4.46967L4.39705 4.55379Z</StreamGeometry>
+    <StreamGeometry x:Key="AddIcon">M12 4C12.4142 4 12.75 4.33579 12.75 4.75V11.25H19.25C19.6642 11.25 20 11.5858 20 12C20 12.4142 19.6642 12.75 19.25 12.75H12.75V19.25C12.75 19.6642 12.4142 20 12 20C11.5858 20 11.25 19.6642 11.25 19.25V12.75H4.75C4.33579 12.75 4 12.4142 4 12C4 11.5858 4.33579 11.25 4.75 11.25H11.25V4.75C11.25 4.33579 11.5858 4 12 4Z</StreamGeometry>
+    <StreamGeometry x:Key="DeleteIcon">M10 2.75C10 2.33579 10.3358 2 10.75 2H13.25C13.6642 2 14 2.33579 14 2.75V4H19.25C19.6642 4 20 4.33579 20 4.75C20 5.16421 19.6642 5.5 19.25 5.5H18.5V18.25C18.5 20.0449 17.0449 21.5 15.25 21.5H8.75C6.95507 21.5 5.5 20.0449 5.5 18.25V5.5H4.75C4.33579 5.5 4 5.16421 4 4.75C4 4.33579 4.33579 4 4.75 4H10V2.75ZM7 5.5V18.25C7 19.2165 7.7835 20 8.75 20H15.25C16.2165 20 17 19.2165 17 18.25V5.5H7ZM9.75 8C10.1642 8 10.5 8.33579 10.5 8.75V16.75C10.5 17.1642 10.1642 17.5 9.75 17.5C9.33579 17.5 9 17.1642 9 16.75V8.75C9 8.33579 9.33579 8 9.75 8ZM14.25 8C14.6642 8 15 8.33579 15 8.75V16.75C15 17.1642 14.6642 17.5 14.25 17.5C13.8358 17.5 13.5 17.1642 13.5 16.75V8.75C13.5 8.33579 13.8358 8 14.25 8Z</StreamGeometry>
+    <StreamGeometry x:Key="FolderIcon">M3.5 6.25V8H8.12868C8.32759 8 8.51836 7.92098 8.65901 7.78033L10.1893 6.25L8.65901 4.71967C8.51836 4.57902 8.32759 4.5 8.12868 4.5H5.25C4.2835 4.5 3.5 5.2835 3.5 6.25ZM2 6.25C2 4.45507 3.45507 3 5.25 3H8.12868C8.72542 3 9.29771 3.23705 9.71967 3.65901L11.5607 5.5H18.75C20.5449 5.5 22 6.95507 22 8.75V17.75C22 19.5449 20.5449 21 18.75 21H5.25C3.45507 21 2 19.5449 2 17.75V6.25ZM3.5 9.5V17.75C3.5 18.7165 4.2835 19.5 5.25 19.5H18.75C19.7165 19.5 20.5 18.7165 20.5 17.75V8.75C20.5 7.7835 19.7165 7 18.75 7H11.5607L9.71967 8.84099C9.29771 9.26295 8.72542 9.5 8.12868 9.5H3.5Z</StreamGeometry>
+    <StreamGeometry x:Key="DragIcon">M15.5 17C16.3284 17 17 17.6716 17 18.5C17 19.3284 16.3284 20 15.5 20C14.6716 20 14 19.3284 14 18.5C14 17.6716 14.6716 17 15.5 17ZM8.5 17C9.32843 17 10 17.6716 10 18.5C10 19.3284 9.32843 20 8.5 20C7.67157 20 7 19.3284 7 18.5C7 17.6716 7.67157 17 8.5 17ZM15.5 10C16.3284 10 17 10.6716 17 11.5C17 12.3284 16.3284 13 15.5 13C14.6716 13 14 12.3284 14 11.5C14 10.6716 14.6716 10 15.5 10ZM8.5 10C9.32843 10 10 10.6716 10 11.5C10 12.3284 9.32843 13 8.5 13C7.67157 13 7 12.3284 7 11.5C7 10.6716 7.67157 10 8.5 10ZM15.5 3C16.3284 3 17 3.67157 17 4.5C17 5.32843 16.3284 6 15.5 6C14.6716 6 14 5.32843 14 4.5C14 3.67157 14.6716 3 15.5 3ZM8.5 3C9.32843 3 10 3.67157 10 4.5C10 5.32843 9.32843 6 8.5 6C7.67157 6 7 5.32843 7 4.5C7 3.67157 7.67157 3 8.5 3Z</StreamGeometry>
+  </UserControl.Resources>
+
+  <UserControl.Styles>
+    <Style Selector="Border.layer-chrome, Border.layer-panel">
+      <Setter Property="Background" Value="#141B21" />
+      <Setter Property="BorderBrush" Value="{DynamicResource PanelBorderBrush}" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="8" />
+    </Style>
+    <Style Selector="TextBlock.layer-title">
+      <Setter Property="FontSize" Value="18" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Foreground" Value="{DynamicResource AppForegroundBrush}" />
+    </Style>
+    <Style Selector="Button.icon-button">
+      <Setter Property="Width" Value="40" />
+      <Setter Property="Height" Value="40" />
+      <Setter Property="Padding" Value="9" />
+      <Setter Property="Background" Value="{DynamicResource ButtonBackgroundBrush}" />
+    </Style>
+    <Style Selector="Button.preview-button">
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+      <Setter Property="VerticalContentAlignment" Value="Stretch" />
+    </Style>
+    <!-- This button overlays the caller's model. Every state must remain transparent. -->
+    <Style Selector="Button.preview-button /template/ ContentPresenter#PART_ContentPresenter, Button.preview-button:pointerover /template/ ContentPresenter#PART_ContentPresenter, Button.preview-button:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderBrush" Value="Transparent" />
+      <Setter Property="BorderThickness" Value="2" />
+    </Style>
+    <Style Selector="Button.preview-button:pointerover /template/ ContentPresenter#PART_ContentPresenter, Button.preview-button:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
+    </Style>
+    <Style Selector="ItemsControl.attribute-list">
+      <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="Border.attribute-card">
+      <Setter Property="Background" Value="#11181E" />
+      <Setter Property="BorderBrush" Value="{DynamicResource PanelBorderBrush}" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="7" />
+      <Setter Property="Padding" Value="16" />
+      <Setter Property="Margin" Value="0,0,0,12" />
+    </Style>
+    <Style Selector="Border.drag-handle">
+      <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="Border.drag-handle:pointerover">
+      <Setter Property="Background" Value="#25333E" />
+    </Style>
+    <Style Selector="Button.attribute-remove">
+      <Setter Property="Background" Value="#7D2929" />
+      <Setter Property="BorderBrush" Value="#C34646" />
+      <Setter Property="BorderThickness" Value="1" />
+    </Style>
+    <Style Selector="Button.attribute-remove:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#9A3232" />
+      <Setter Property="BorderBrush" Value="#E35A5A" />
+    </Style>
+  </UserControl.Styles>
+
+  <Grid RowDefinitions="74,*,52" Background="{DynamicResource AppBackgroundBrush}">
+    <Border Grid.Row="0" Classes="layer-chrome" Margin="14,12,14,6" PointerPressed="OnHeaderPointerPressed">
+      <Grid ColumnDefinitions="*,Auto" Margin="20,0,10,0">
+        <TextBlock Text="{Binding HeaderText}" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" />
+        <Button Grid.Column="1" Classes="icon-button" Click="OnCloseClicked" ToolTip.Tip="Close and apply changes" AutomationProperties.Name="Close and apply changes">
+          <PathIcon Data="{StaticResource DismissIcon}" Width="22" Height="22" Foreground="{DynamicResource AppForegroundBrush}" />
+        </Button>
+      </Grid>
+    </Border>
+
+    <Grid Grid.Row="1" ColumnDefinitions="2*,12,3*" Margin="14,6">
+      <Border Grid.Column="0" Classes="layer-panel" ClipToBounds="True">
+        <Grid RowDefinitions="58,*">
+          <Border BorderBrush="{DynamicResource PanelBorderBrush}" BorderThickness="0,0,0,1" Padding="20,0">
+            <TextBlock Classes="layer-title" Text="Material Preview" VerticalAlignment="Center" />
+          </Border>
+          <Grid Grid.Row="1" Background="#0D1318">
+            <ContentControl Content="{Binding PreviewControl}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" IsHitTestVisible="False" />
+            <Button Classes="preview-button"
+                    Click="OnPreviewClicked"
+                    ToolTip.Tip="Open material selector"
+                    AutomationProperties.Name="Choose material"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Background="Transparent"
+                    Content=" " />
+            <Grid VerticalAlignment="Bottom" ColumnDefinitions="*,Auto" Margin="22,0,22,22" IsHitTestVisible="False">
+                <StackPanel HorizontalAlignment="Center" Spacing="5">
+                  <TextBlock Text="Click preview to choose material" Foreground="{DynamicResource MutedForegroundBrush}" FontSize="13" HorizontalAlignment="Center" />
+                  <TextBlock Text="{Binding MaterialName}" Foreground="{DynamicResource AppForegroundBrush}" FontSize="14" FontWeight="SemiBold" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+                <Border Grid.Column="1" Background="{DynamicResource ButtonBackgroundBrush}" BorderBrush="{DynamicResource PanelBorderBrush}" BorderThickness="1" CornerRadius="5" Padding="9">
+                  <PathIcon Data="{StaticResource FolderIcon}" Width="23" Height="23" Foreground="{DynamicResource AppForegroundBrush}" />
+                </Border>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Border>
+
+      <Border Grid.Column="2" Classes="layer-panel" ClipToBounds="True">
+        <Grid RowDefinitions="58,*">
+          <Border BorderBrush="{DynamicResource PanelBorderBrush}" BorderThickness="0,0,0,1" Padding="20,0">
+            <Grid ColumnDefinitions="*,Auto">
+              <TextBlock Classes="layer-title" Text="Attributes" VerticalAlignment="Center" />
+              <Button Grid.Column="1" Classes="primary" Click="OnAddAttributeClicked" Padding="15,8" AutomationProperties.Name="Add Attribute">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                  <PathIcon Data="{StaticResource AddIcon}" Width="19" Height="19" Foreground="{DynamicResource AccentForegroundBrush}" />
+                  <TextBlock Text="Add Attribute" VerticalAlignment="Center" />
+                </StackPanel>
+              </Button>
+            </Grid>
+          </Border>
+
+          <ScrollViewer Grid.Row="1" Margin="16,12,8,12" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <ItemsControl x:Name="AttributeList" Classes="attribute-list" ItemsSource="{Binding Attributes}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="local:LayerAttributeItemViewModel">
+                  <Border Classes="attribute-card">
+                    <Grid ColumnDefinitions="50,*,16,*,16,48">
+                      <Border Classes="drag-handle" Width="38" Height="54" CornerRadius="5" Cursor="SizeNorthSouth"
+                              PointerPressed="OnDragHandlePressed"
+                              AutomationProperties.Name="Drag to reorder attribute"
+                              ToolTip.Tip="Drag to reorder">
+                        <PathIcon Data="{StaticResource DragIcon}" Width="22" Height="28" Foreground="{DynamicResource MutedForegroundBrush}" AutomationProperties.Name="Drag to reorder attribute" IsHitTestVisible="False" />
+                      </Border>
+                      <StackPanel Grid.Column="1" Spacing="4">
+                        <TextBlock Classes="field-label" Text="Type" />
+                        <ComboBox ItemsSource="{Binding AvailableTypes}" SelectedItem="{Binding Type}" HorizontalAlignment="Stretch" />
+                      </StackPanel>
+                      <StackPanel Grid.Column="3" Spacing="4">
+                        <TextBlock Classes="field-label" Text="Value" />
+                        <TextBox Text="{Binding Value}" PlaceholderText="Enter a value" HorizontalAlignment="Stretch" />
+                      </StackPanel>
+                      <Button Grid.Column="5" Classes="danger attribute-remove" Width="44" Height="44" Padding="10" VerticalAlignment="Bottom" Click="OnRemoveAttributeClicked" ToolTip.Tip="Remove attribute" AutomationProperties.Name="Remove attribute">
+                        <PathIcon Data="{StaticResource DeleteIcon}" Width="21" Height="21" Foreground="{DynamicResource DangerForegroundBrush}" />
+                      </Button>
+                    </Grid>
+                  </Border>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </ScrollViewer>
+        </Grid>
+      </Border>
+    </Grid>
+
+    <Border Grid.Row="2" Classes="layer-chrome" Margin="14,6,14,12">
+      <Grid ColumnDefinitions="Auto,Auto,*" ColumnSpacing="12" Margin="20,0">
+        <TextBlock Text="{Binding AttributeCountText}" Foreground="{DynamicResource MutedForegroundBrush}" VerticalAlignment="Center" />
+        <TextBlock Grid.Column="1" Text="•" Foreground="{DynamicResource MutedForegroundBrush}" VerticalAlignment="Center" />
+        <TextBlock Grid.Column="2" Text="{Binding StatusMessage}" Foreground="{DynamicResource MutedForegroundBrush}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+      </Grid>
+    </Border>
+  </Grid>
+</UserControl>
+

@@ -1,0 +1,10 @@
+{
+  "TargetUpdateFramesPerSecond": 60,
+  "Reconciliation": {
+    "Enabled": true,
+    "IgnoreErrorDistance": 0.15,
+    "BlendErrorDistance": 0.75,
+    "BlendMilliseconds": 150,
+    "SnapOnFailedCanceledOrCompleted": true
+  }
+}

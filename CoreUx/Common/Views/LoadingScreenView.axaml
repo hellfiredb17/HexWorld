@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:HawkNet.CoreUx.Common.ViewModels"
+             x:Class="HawkNet.CoreUx.Common.Views.LoadingScreenView"
+             x:DataType="vm:LoadingScreenViewModel">
+  <Grid Margin="{StaticResource PagePadding}">
+    <Border Classes="settings-section"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Width="420">
+      <StackPanel Spacing="14"
+                  HorizontalAlignment="Stretch">
+        <Border IsVisible="{Binding HasImage}"
+                Background="{DynamicResource InputBackgroundBrush}"
+                BorderBrush="{DynamicResource PanelBorderBrush}"
+                BorderThickness="1"
+                CornerRadius="8"
+                Height="130">
+          <TextBlock Text="{Binding ImageKey}"
+                     Classes="status"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center" />
+        </Border>
+        <ProgressBar IsIndeterminate="True"
+                     Height="6" />
+        <TextBlock Text="{Binding HeaderText}"
+                   FontSize="{StaticResource TitleFontSize}"
+                   FontWeight="SemiBold"
+                   Foreground="{DynamicResource AppForegroundBrush}"
+                   HorizontalAlignment="Center" />
+        <TextBlock Text="{Binding ContentText}"
+                   Classes="status"
+                   TextWrapping="Wrap"
+                   TextAlignment="Center" />
+      </StackPanel>
+    </Border>
+  </Grid>
+</UserControl>

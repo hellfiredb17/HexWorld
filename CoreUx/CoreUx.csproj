@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>HawkNet.CoreUx</AssemblyName>
+    <RootNamespace>HawkNet.CoreUx</RootNamespace>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="12.0.2" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="12.0.2" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="12.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HawkNet\HawkNet.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Config\coreux-flow.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Config\world-viewer.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Assets\" />
+    <Folder Include="Server\Views\" />
+    <Folder Include="Server\ViewModels\" />
+    <Folder Include="Server\Services\" />
+    <Folder Include="Client\Views\" />
+    <Folder Include="Client\ViewModels\" />
+    <Folder Include="Client\Services\" />
+    <Folder Include="Common\Views\" />
+    <Folder Include="Common\ViewModels\" />
+    <Folder Include="Common\Services\" />
+    <Folder Include="Common\Styles\" />
+    <Folder Include="Common\Themes\" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,105 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:local="using:HawkNet.CoreUx.Common.TileCreation" xmlns:layers="using:HawkNet.CoreUx.Common.LayerSelection"
+ x:Class="HawkNet.CoreUx.Common.TileCreation.TileCreatorView" x:DataType="local:TileCreatorViewModel" MinWidth="820" MinHeight="520" FontSize="16">
+ <UserControl.Resources>
+ <!-- Microsoft Fluent UI System Icons, MIT licensed; see Assets/Icons notice. -->
+ <StreamGeometry x:Key="DismissIcon">M4.39705 4.55379L4.46967 4.46967C4.73594 4.2034 5.1526 4.1792 5.44621 4.39705L5.53033 4.46967L12 10.939L18.4697 4.46967C18.7626 4.17678 19.2374 4.17678 19.5303 4.46967C19.8232 4.76256 19.8232 5.23744 19.5303 5.53033L13.061 12L19.5303 18.4697C19.7966 18.7359 19.8208 19.1526 19.6029 19.4462L19.5303 19.5303C19.2641 19.7966 18.8474 19.8208 18.5538 19.6029L18.4697 19.5303L12 13.061L5.53033 19.5303C5.23744 19.8232 4.76256 19.8232 4.46967 19.5303C4.17678 19.2374 4.17678 18.7626 4.46967 18.4697L10.939 12L4.46967 5.53033C4.2034 5.26406 4.1792 4.8474 4.39705 4.55379L4.46967 4.46967L4.39705 4.55379Z</StreamGeometry>
+<StreamGeometry x:Key="AddIcon">M12 4C12.4142 4 12.75 4.33579 12.75 4.75V11.25H19.25C19.6642 11.25 20 11.5858 20 12C20 12.4142 19.6642 12.75 19.25 12.75H12.75V19.25C12.75 19.6642 12.4142 20 12 20C11.5858 20 11.25 19.6642 11.25 19.25V12.75H4.75C4.33579 12.75 4 12.4142 4 12C4 11.5858 4.33579 11.25 4.75 11.25H11.25V4.75C11.25 4.33579 11.5858 4 12 4Z</StreamGeometry>
+<StreamGeometry x:Key="DeleteIcon">M10 2.75C10 2.33579 10.3358 2 10.75 2H13.25C13.6642 2 14 2.33579 14 2.75V4H19.25C19.6642 4 20 4.33579 20 4.75C20 5.16421 19.6642 5.5 19.25 5.5H18.5V18.25C18.5 20.0449 17.0449 21.5 15.25 21.5H8.75C6.95507 21.5 5.5 20.0449 5.5 18.25V5.5H4.75C4.33579 5.5 4 5.16421 4 4.75C4 4.33579 4.33579 4 4.75 4H10V2.75ZM7 5.5V18.25C7 19.2165 7.7835 20 8.75 20H15.25C16.2165 20 17 19.2165 17 18.25V5.5H7ZM9.75 8C10.1642 8 10.5 8.33579 10.5 8.75V16.75C10.5 17.1642 10.1642 17.5 9.75 17.5C9.33579 17.5 9 17.1642 9 16.75V8.75C9 8.33579 9.33579 8 9.75 8ZM14.25 8C14.6642 8 15 8.33579 15 8.75V16.75C15 17.1642 14.6642 17.5 14.25 17.5C13.8358 17.5 13.5 17.1642 13.5 16.75V8.75C13.5 8.33579 13.8358 8 14.25 8Z</StreamGeometry>
+<StreamGeometry x:Key="DragIcon">M15.5 17C16.3284 17 17 17.6716 17 18.5C17 19.3284 16.3284 20 15.5 20C14.6716 20 14 19.3284 14 18.5C14 17.6716 14.6716 17 15.5 17ZM8.5 17C9.32843 17 10 17.6716 10 18.5C10 19.3284 9.32843 20 8.5 20C7.67157 20 7 19.3284 7 18.5C7 17.6716 7.67157 17 8.5 17ZM15.5 10C16.3284 10 17 10.6716 17 11.5C17 12.3284 16.3284 13 15.5 13C14.6716 13 14 12.3284 14 11.5C14 10.6716 14.6716 10 15.5 10ZM8.5 10C9.32843 10 10 10.6716 10 11.5C10 12.3284 9.32843 13 8.5 13C7.67157 13 7 12.3284 7 11.5C7 10.6716 7.67157 10 8.5 10ZM15.5 3C16.3284 3 17 3.67157 17 4.5C17 5.32843 16.3284 6 15.5 6C14.6716 6 14 5.32843 14 4.5C14 3.67157 14.6716 3 15.5 3ZM8.5 3C9.32843 3 10 3.67157 10 4.5C10 5.32843 9.32843 6 8.5 6C7.67157 6 7 5.32843 7 4.5C7 3.67157 7.67157 3 8.5 3Z</StreamGeometry>
+ </UserControl.Resources>
+ <UserControl.Styles>
+  <Style Selector="Border.tile-chrome, Border.tile-row">
+   <Setter Property="Background" Value="{DynamicResource PanelBackgroundBrush}" />
+   <Setter Property="BorderBrush" Value="{DynamicResource PanelBorderBrush}" />
+   <Setter Property="BorderThickness" Value="1" /><Setter Property="CornerRadius" Value="8" />
+  </Style>
+  <Style Selector="Border.tile-row"><Setter Property="Padding" Value="16" /><Setter Property="Margin" Value="0,0,8,10" /></Style>
+  <Style Selector="Border.tile-row.zero"><Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}" /></Style>
+  <Style Selector="Border.tile-row.zero TextBlock.tile-layer-title"><Setter Property="Foreground" Value="{DynamicResource AccentBrush}" /></Style><Style Selector="Border.tile-grip"><Setter Property="Background" Value="Transparent" /></Style>
+  <Style Selector="Border.tile-grip:pointerover"><Setter Property="Background" Value="#25333E" /></Style>
+  <Style Selector="Button.tile-icon"><Setter Property="Width" Value="40" /><Setter Property="Height" Value="40" /><Setter Property="Padding" Value="9" /></Style>
+  <Style Selector="Button.tile-remove"><Setter Property="Background" Value="#7D2929" /><Setter Property="BorderBrush" Value="#C34646" /></Style>
+  <Style Selector="Button.tile-add"><Setter Property="FontSize" Value="16" /><Setter Property="HorizontalAlignment" Value="Stretch" /><Setter Property="Height" Value="48" /><Setter Property="HorizontalContentAlignment" Value="Center" /><Setter Property="Foreground" Value="{DynamicResource AccentBrush}" /></Style>
+  <Style Selector="Button.tile-preview"><Setter Property="HorizontalAlignment" Value="Stretch" /><Setter Property="Padding" Value="0" /><Setter Property="Background" Value="#0D1318" /><Setter Property="HorizontalContentAlignment" Value="Stretch" /></Style>
+ </UserControl.Styles>
+ <ThemeVariantScope RequestedThemeVariant="Dark">
+ <Grid RowDefinitions="74,*,Auto" Background="{DynamicResource AppBackgroundBrush}">
+  <Border Classes="tile-chrome" Margin="14,12,14,6" PointerPressed="OnHeaderPointerPressed">
+   <Grid ColumnDefinitions="*,Auto" Margin="20,0,10,0">
+    <TextBlock Text="{Binding HeaderText}" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" />
+    <Button Grid.Column="1" Classes="tile-icon" Click="OnCloseClicked" AutomationProperties.Name="Close" ToolTip.Tip="Close">
+     <PathIcon Data="{StaticResource DismissIcon}" Width="22" Height="22" />
+    </Button>
+   </Grid>
+  </Border>
+  <Border Grid.Row="1" Classes="tile-chrome" Margin="14,6" Padding="12">
+   <Grid RowDefinitions="Auto,*,Auto" IsEnabled="{Binding CanEdit}">
+    <StackPanel Spacing="12" Margin="0,0,0,10">
+     <StackPanel Orientation="Horizontal" Spacing="12">
+      <TextBlock Text="Model" VerticalAlignment="Center" />
+      <ComboBox x:Name="ModelSelector" Width="200" ItemsSource="{Binding ModelOptions}" SelectedIndex="{Binding SelectedModelIndex, Mode=OneWay}" SelectionChanged="OnModelSelectionChanged" AutomationProperties.Name="Tile model" />
+     </StackPanel>
+     <Button Classes="tile-add" Click="OnAddAboveClicked"><StackPanel Orientation="Horizontal" Spacing="10"><TextBlock Text="↑" /><TextBlock Text="Add Layer" /></StackPanel></Button>
+    </StackPanel>
+    <ScrollViewer Grid.Row="1" x:Name="LayerScroll" VerticalScrollBarVisibility="Visible" AllowAutoHide="False" HorizontalScrollBarVisibility="Disabled">
+     <ItemsControl x:Name="LayerList" ItemsSource="{Binding Layers}">
+      <ItemsControl.ItemTemplate>
+       <DataTemplate x:DataType="local:TileLayerItemViewModel">
+        <Border Classes="tile-row" Classes.zero="{Binding IsZero}">
+         <Grid ColumnDefinitions="32,190,*,48" ColumnSpacing="18">
+          <Border Classes="tile-grip" PointerPressed="OnDragPressed" Cursor="SizeAll" ToolTip.Tip="Drag to reorder layer" AutomationProperties.Name="Drag to reorder layer">
+           <PathIcon Data="{StaticResource DragIcon}" Width="18" Height="26" Foreground="{DynamicResource MutedForegroundBrush}" IsHitTestVisible="False" />
+          </Border>
+          <Button Grid.Column="1" Classes="tile-preview" Click="OnPreviewClicked" VerticalAlignment="Top" AutomationProperties.Name="Edit layer" ToolTip.Tip="Open layer editor">
+           <Grid RowDefinitions="150,Auto">
+            <ContentControl Content="{Binding PreviewControl}" IsHitTestVisible="False" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+            <TextBlock Grid.Row="1" Text="Click to edit layer" FontSize="12" Foreground="{DynamicResource MutedForegroundBrush}" HorizontalAlignment="Center" Margin="4,6" />
+           </Grid>
+          </Button>
+          <Grid Grid.Column="2" ColumnDefinitions="*,1,1.35*" ColumnSpacing="18">
+           <StackPanel Spacing="10" Margin="0,12,0,0">
+            <TextBlock Classes="tile-layer-title" Text="{Binding HeaderText}" FontSize="20" FontWeight="SemiBold" />
+            <TextBlock Text="{Binding MaterialName}" TextWrapping="Wrap" Foreground="{DynamicResource MutedForegroundBrush}" />
+           </StackPanel>
+           <Border Grid.Column="1" Background="{DynamicResource PanelBorderBrush}" />
+           <StackPanel Grid.Column="2" Spacing="8" Margin="0,8,0,0">
+            <TextBlock Text="Attributes" Foreground="{DynamicResource MutedForegroundBrush}" />
+            <TextBlock Text="No attributes" IsVisible="{Binding HasNoAttributes}" Foreground="{DynamicResource MutedForegroundBrush}" />
+            <ItemsControl ItemsSource="{Binding Attributes}">
+             <ItemsControl.ItemTemplate><DataTemplate x:DataType="layers:LayerAttributeDefinition">
+              <Border BorderBrush="{DynamicResource PanelBorderBrush}" BorderThickness="0,1,0,0" Padding="8,9">
+               <Grid ColumnDefinitions="*,*" ColumnSpacing="12"><TextBlock Text="{Binding Type}" TextWrapping="Wrap" /><TextBlock Grid.Column="1" Text="{Binding Value}" TextWrapping="Wrap" /></Grid>
+              </Border>
+             </DataTemplate></ItemsControl.ItemTemplate>
+            </ItemsControl>
+           </StackPanel>
+          </Grid>
+          <Button Grid.Column="3" Classes="tile-icon tile-remove" Click="OnRemoveClicked" VerticalAlignment="Top" Margin="0,14,0,0" ToolTip.Tip="Remove layer" AutomationProperties.Name="Remove layer">
+           <PathIcon Data="{StaticResource DeleteIcon}" Width="20" Height="20" />
+          </Button>
+         </Grid>
+        </Border>
+       </DataTemplate>
+      </ItemsControl.ItemTemplate>
+     </ItemsControl>
+    </ScrollViewer>
+    <Button Grid.Row="2" Classes="tile-add" Click="OnAddBelowClicked" Margin="0,10,0,0"><StackPanel Orientation="Horizontal" Spacing="10"><TextBlock Text="↓" /><TextBlock Text="Add Layer" /></StackPanel></Button>
+   </Grid>
+  </Border>
+  <Border Grid.Row="2" Classes="tile-chrome" Margin="14,6,14,12" Padding="14">
+   <Grid RowDefinitions="Auto,Auto">
+    <TextBlock Text="{Binding StatusMessage}" IsVisible="{Binding HasStatus}" TextWrapping="Wrap" Margin="0,0,0,10" Foreground="{DynamicResource MutedForegroundBrush}" />
+    <Grid Grid.Row="1" ColumnDefinitions="Auto,*,Auto" IsEnabled="{Binding CanEdit}">
+     <Button Content="Load" FontSize="16" Width="120" Click="OnLoadClicked" />
+     <Button Grid.Column="2" Content="Save As" FontSize="16" Classes="primary" Width="140" Click="OnSaveAsClicked" />
+    </Grid>
+   </Grid>
+  </Border>
+ </Grid>
+ </ThemeVariantScope>
+</UserControl>
+
+
+
+

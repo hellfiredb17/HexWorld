@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "TileName": null,
+  "Layers": [
+    {
+      "LayerNumber": 0,
+      "TexturePath": "..\\..\\..\\ClanIronSim.CoreUx\\Assets\\rough-ground-tile.png",
+      "Attributes": [
+        {
+          "Type": "Movement",
+          "Value": "1"
+        }
+      ]
+    }
+  ]
+}

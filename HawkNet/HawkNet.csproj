@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;netstandard2.1</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <PackageId>HawkNet</PackageId>
+    <Title>Hawk Net</Title>
+    <Version>0.0.0001</Version>
+    <Authors>Duncan Budinger</Authors>
+    <Company>Duncan Budinger</Company>
+    <Product>Hawk Net</Product>
+    <Description>A pure C# client/server networking framework for reusable game and simulation projects.</Description>
+    <PackageTags>networking;game-server;game-client;multiplayer;framework;unity</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>DOCUMENTATION.md</PackageReadmeFile>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Templates\**\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Resources\DOCUMENTATION.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Game\GameState\Lobby\" />
+    <Folder Include="Game\GameState\" />
+  </ItemGroup>
+
+</Project>

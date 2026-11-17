@@ -1,0 +1,163 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:commonVm="using:HawkNet.CoreUx.Common.ViewModels"
+             xmlns:vm="using:HawkNet.CoreUx.Server.ViewModels"
+             x:Class="HawkNet.CoreUx.Server.Views.ChatLobbyView"
+             x:DataType="vm:ChatLobbyViewModel">
+  <Grid Margin="{StaticResource PagePadding}"
+        RowDefinitions="Auto,*"
+        ColumnDefinitions="260,*,300"
+        ColumnSpacing="{StaticResource SectionGap}"
+        RowSpacing="{StaticResource SectionGap}">
+    <Grid Grid.Row="0"
+          Grid.Column="0"
+          Grid.ColumnSpan="3"
+          ColumnDefinitions="*,Auto,Auto,Auto"
+          ColumnSpacing="12">
+      <StackPanel Grid.Column="0">
+        <TextBlock Text="{Binding Title}"
+                   FontSize="{StaticResource TitleFontSize}"
+                   FontWeight="SemiBold"
+                   Foreground="{DynamicResource AppForegroundBrush}" />
+        <TextBlock Text="{Binding StatusMessage}"
+                   Classes="status" />
+      </StackPanel>
+      <TextBlock Grid.Column="1"
+                 Text="{Binding ReadyCountText}"
+                 Classes="status"
+                 VerticalAlignment="Bottom" />
+      <Button Grid.Column="2"
+              Classes="primary"
+              Command="{Binding StartMatchCommand}"
+              Content="Start Match" />
+      <Button Grid.Column="3"
+              Classes="danger"
+              Command="{Binding StopServerCommand}"
+              Content="Stop Server" />
+    </Grid>
+
+    <Border Grid.Row="1"
+            Grid.Column="0"
+            Classes="settings-section">
+      <DockPanel LastChildFill="True">
+        <TextBlock DockPanel.Dock="Top"
+                   Classes="section-title"
+                   Text="Members" />
+        <ScrollViewer>
+          <ItemsControl ItemsSource="{Binding Members}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate DataType="commonVm:ChatLobbyMemberViewModel">
+                <Border BorderBrush="{DynamicResource PanelBorderBrush}"
+                        BorderThickness="0,0,0,1"
+                        Padding="0,8">
+                  <Grid ColumnDefinitions="*,Auto">
+                    <TextBlock Grid.Column="0"
+                               Text="{Binding DisplayLabel}"
+                               Foreground="{DynamicResource AppForegroundBrush}"
+                               TextTrimming="CharacterEllipsis" />
+                    <TextBlock Grid.Column="1"
+                               Text="{Binding ReadyText}"
+                               Foreground="{DynamicResource MutedForegroundBrush}" />
+                  </Grid>
+                </Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </ScrollViewer>
+      </DockPanel>
+    </Border>
+
+    <Border Grid.Row="1"
+            Grid.Column="1"
+            Classes="settings-section">
+      <Grid RowDefinitions="Auto,*,Auto"
+            RowSpacing="12">
+        <TextBlock Grid.Row="0"
+                   Classes="section-title"
+                   Text="Chat" />
+        <ScrollViewer Grid.Row="1">
+          <ItemsControl ItemsSource="{Binding ChatMessages}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate DataType="commonVm:ChatMessageViewModel">
+                <StackPanel Margin="0,0,0,12">
+                  <Grid ColumnDefinitions="*,Auto">
+                    <TextBlock Grid.Column="0"
+                               Text="{Binding SenderLabel}"
+                               FontWeight="SemiBold"
+                               Foreground="{Binding SenderBrush}" />
+                    <TextBlock Grid.Column="1"
+                               Text="{Binding TimestampText}"
+                               Foreground="{DynamicResource MutedForegroundBrush}" />
+                  </Grid>
+                  <TextBlock Text="{Binding Message}"
+                             TextWrapping="Wrap"
+                             Foreground="{DynamicResource AppForegroundBrush}" />
+                </StackPanel>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </ScrollViewer>
+        <Grid Grid.Row="2"
+              ColumnDefinitions="*,Auto"
+              ColumnSpacing="10">
+          <TextBox Grid.Column="0"
+                   Text="{Binding PendingMessage, Mode=TwoWay}"
+                   PlaceholderText="Send a message">
+            <TextBox.KeyBindings>
+              <KeyBinding Gesture="Enter"
+                          Command="{Binding SendMessageCommand}" />
+            </TextBox.KeyBindings>
+          </TextBox>
+          <Button Grid.Column="1"
+                  Classes="primary"
+                  Command="{Binding SendMessageCommand}"
+                  Content="Send" />
+        </Grid>
+      </Grid>
+    </Border>
+
+    <Border Grid.Row="1"
+            Grid.Column="2"
+            Classes="settings-section">
+      <StackPanel Spacing="14">
+        <TextBlock Classes="section-title" Text="Information" />
+        <Border Background="{DynamicResource InputBackgroundBrush}"
+                BorderBrush="{DynamicResource PanelBorderBrush}"
+                BorderThickness="1"
+                CornerRadius="8"
+                Height="170">
+          <TextBlock Text="{Binding MapName}"
+                     Classes="status"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     TextWrapping="Wrap"
+                     TextAlignment="Center" />
+        </Border>
+        <Grid ColumnDefinitions="*,Auto">
+          <TextBlock Grid.Column="0"
+                     Text="Players"
+                     Foreground="{DynamicResource MutedForegroundBrush}" />
+          <TextBlock Grid.Column="1"
+                     Text="{Binding PlayerCountText}"
+                     Foreground="{DynamicResource AppForegroundBrush}" />
+        </Grid>
+        <Grid ColumnDefinitions="*,Auto">
+          <TextBlock Grid.Column="0"
+                     Text="Readiness"
+                     Foreground="{DynamicResource MutedForegroundBrush}" />
+          <TextBlock Grid.Column="1"
+                     Text="{Binding ReadyCountText}"
+                     Foreground="{DynamicResource AppForegroundBrush}" />
+        </Grid>
+        <Grid ColumnDefinitions="*,Auto">
+          <TextBlock Grid.Column="0"
+                     Text="Countdown"
+                     Foreground="{DynamicResource MutedForegroundBrush}" />
+          <TextBlock Grid.Column="1"
+                     Text="{Binding CountdownText}"
+                     Foreground="{DynamicResource AppForegroundBrush}" />
+        </Grid>
+      </StackPanel>
+    </Border>
+  </Grid>
+</UserControl>

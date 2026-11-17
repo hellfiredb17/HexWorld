@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>HawkNet.Desktop</AssemblyName>
+    <RootNamespace>HawkNet.Desktop</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Desktop" Version="12.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ClanIronSim.HawkNet\ClanIronSim.HawkNet.csproj" />
+    <ProjectReference Include="..\ClanIronSim.CoreUx\ClanIronSim.CoreUx.csproj" />
+    <ProjectReference Include="..\CoreUx\CoreUx.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Config\desktop-flow.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Config\game-client.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Config\game-server.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

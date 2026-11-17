@@ -1,0 +1,35 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:HawkNet.CoreUx.Common.ViewModels"
+             x:Class="HawkNet.CoreUx.Common.Views.MainMenuView"
+             x:DataType="vm:MainMenuViewModel">
+  <Grid Margin="{StaticResource PagePadding}">
+    <StackPanel Width="360"
+                Spacing="18"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+      <TextBlock Text="{Binding Title}"
+                 FontSize="44"
+                 FontWeight="SemiBold"
+                 TextAlignment="Center"
+                 Foreground="{DynamicResource AppForegroundBrush}" />
+      <Button Classes="primary"
+              Command="{Binding CreateServerCommand}"
+              Content="Create Server"
+              HorizontalAlignment="Stretch" />
+      <Button Command="{Binding FindLobbyCommand}"
+              Content="Find Lobby"
+              HorizontalAlignment="Stretch" />
+      <ItemsControl ItemsSource="{Binding Tools}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <Button Command="{Binding OpenCommand}"
+                    Content="{Binding DisplayName}"
+                    HorizontalAlignment="Stretch"
+                    Margin="0,0,0,8" />
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </StackPanel>
+  </Grid>
+</UserControl>

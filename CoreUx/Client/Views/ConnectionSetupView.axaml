@@ -1,0 +1,158 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:HawkNet.CoreUx.Client.ViewModels"
+             x:Class="HawkNet.CoreUx.Client.Views.ConnectionSetupView"
+             x:DataType="vm:ConnectionSetupViewModel">
+  <ScrollViewer>
+    <StackPanel Margin="{StaticResource PagePadding}" Spacing="{StaticResource SectionGap}">
+      <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+        <TextBlock Grid.Row="0"
+                   Grid.Column="0"
+                   Text="Connection Setup"
+                   FontSize="{StaticResource TitleFontSize}"
+                   FontWeight="SemiBold"
+                   Foreground="{DynamicResource AppForegroundBrush}" />
+        <Button Grid.Row="0"
+                Grid.Column="1"
+                Classes="primary"
+                Command="{Binding ConnectCommand}"
+                Content="Connect" />
+        <TextBlock Grid.Row="1"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Classes="status"
+                   Text="{Binding StatusMessage}" />
+      </Grid>
+
+      <Border Classes="settings-section">
+        <StackPanel>
+          <TextBlock Classes="section-title" Text="Server" />
+          <WrapPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Host" />
+              <ComboBox ItemsSource="{Binding HostOptions}"
+                        Text="{Binding Host, Mode=TwoWay}"
+                        IsEditable="True" />
+            </StackPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Port" />
+              <TextBox Text="{Binding Port, Mode=TwoWay}" />
+            </StackPanel>
+          </WrapPanel>
+        </StackPanel>
+      </Border>
+
+      <Border Classes="settings-section">
+        <StackPanel>
+          <TextBlock Classes="section-title" Text="Networking" />
+          <WrapPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Protocol" />
+              <ComboBox ItemsSource="{Binding ProtocolOptions}"
+                        SelectedItem="{Binding Protocol, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Heartbeat interval seconds" />
+              <TextBox Text="{Binding HeartbeatIntervalSeconds, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Reconnect enabled" />
+              <CheckBox IsChecked="{Binding ReconnectEnabled, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Receive buffer size" />
+              <TextBox Text="{Binding ReceiveBufferSize, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Send buffer size" />
+              <TextBox Text="{Binding SendBufferSize, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="No delay" />
+              <CheckBox IsChecked="{Binding NoDelay, Mode=TwoWay}" />
+            </StackPanel>
+          </WrapPanel>
+        </StackPanel>
+      </Border>
+
+      <Border Classes="settings-section" IsVisible="{Binding IsUdpSelected}">
+        <StackPanel Spacing="8">
+          <TextBlock Classes="section-title" Text="Reliable UDP delivery" />
+          <TextBlock Classes="status"
+                     Text="These values must be compatible with the server. Protocol v3 limits complete datagrams to 1,200 bytes." />
+          <WrapPanel>
+            <StackPanel Classes="field"><TextBlock Classes="field-label" Text="Maximum datagram bytes" /><TextBox Text="{Binding UdpMaxDatagramBytes, Mode=TwoWay}" /></StackPanel>
+            <StackPanel Classes="field"><TextBlock Classes="field-label" Text="Reliable window size" /><TextBox Text="{Binding UdpReliableWindowSize, Mode=TwoWay}" /></StackPanel>
+            <StackPanel Classes="field"><TextBlock Classes="field-label" Text="Reorder capacity" /><TextBox Text="{Binding UdpReorderCapacity, Mode=TwoWay}" /></StackPanel>
+            <StackPanel Classes="field"><TextBlock Classes="field-label" Text="Initial retransmit (ms)" /><TextBox Text="{Binding UdpInitialRetransmitMilliseconds, Mode=TwoWay}" /></StackPanel>
+            <StackPanel Classes="field"><TextBlock Classes="field-label" Text="Minimum retransmit (ms)" /><TextBox Text="{Binding UdpMinimumRetransmitMilliseconds, Mode=TwoWay}" /></StackPanel>
+            <StackPanel Classes="field"><TextBlock Classes="field-label" Text="Maximum retransmit (ms)" /><TextBox Text="{Binding UdpMaximumRetransmitMilliseconds, Mode=TwoWay}" /></StackPanel>
+            <StackPanel Classes="field"><TextBlock Classes="field-label" Text="Maximum retries" /><TextBox Text="{Binding UdpMaximumRetries, Mode=TwoWay}" /></StackPanel>
+            <StackPanel Classes="field"><TextBlock Classes="field-label" Text="Acknowledgement delay (ms)" /><TextBox Text="{Binding UdpAcknowledgementDelayMilliseconds, Mode=TwoWay}" /></StackPanel>
+          </WrapPanel>
+        </StackPanel>
+      </Border>
+
+      <Border Classes="settings-section">
+        <Grid RowDefinitions="Auto,Auto,*"
+              RowSpacing="12">
+          <Grid Grid.Row="0"
+                ColumnDefinitions="*,120,Auto"
+                ColumnSpacing="10">
+            <TextBlock Grid.Column="0"
+                       Classes="section-title"
+                       Text="Found Servers" />
+            <TextBox Grid.Column="1"
+                     Text="{Binding ScanPort, Mode=TwoWay}" />
+            <Button Grid.Column="2"
+                    Classes="primary"
+                    Command="{Binding SearchCommand}"
+                    Content="{Binding SearchButtonText}" />
+          </Grid>
+          <TextBlock Grid.Row="1"
+                     Classes="status"
+                     Text="Search scans the current network connection on the selected port." />
+          <ListBox Grid.Row="2"
+                   SelectionChanged="OnFoundServersSelectionChanged"
+                   ItemsSource="{Binding FoundServers}"
+                   SelectedItem="{Binding SelectedServer, Mode=TwoWay}"
+                   Background="{DynamicResource InputBackgroundBrush}"
+                   BorderBrush="{DynamicResource PanelBorderBrush}"
+                   Foreground="{DynamicResource AppForegroundBrush}"
+                   MinHeight="150">
+            <ListBox.Styles>
+              <Style Selector="Border.found-server-row:pointerover">
+                <Setter Property="Background" Value="{DynamicResource ButtonHoverBackgroundBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ButtonHoverBorderBrush}" />
+              </Style>
+            </ListBox.Styles>
+            <ListBox.ItemTemplate>
+              <DataTemplate DataType="vm:FoundServerViewModel">
+                <Border Background="{DynamicResource InputBackgroundBrush}"
+                        BorderBrush="{DynamicResource PanelBorderBrush}"
+                        BorderThickness="1"
+                        Classes="found-server-row"
+                        CornerRadius="6"
+                        Cursor="Hand"
+                        Padding="10,8"
+                        Margin="0,4"
+                        PointerPressed="OnFoundServerPointerPressed">
+                  <Grid ColumnDefinitions="*,Auto"
+                        ColumnSpacing="12">
+                    <TextBlock Grid.Column="0"
+                               Text="{Binding Name}"
+                               Foreground="{DynamicResource AppForegroundBrush}"
+                               TextTrimming="CharacterEllipsis" />
+                    <TextBlock Grid.Column="1"
+                               Text="{Binding EndpointText}"
+                               Foreground="{DynamicResource MutedForegroundBrush}" />
+                  </Grid>
+                </Border>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+        </Grid>
+      </Border>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

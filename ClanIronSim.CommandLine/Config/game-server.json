@@ -1,0 +1,15 @@
+{
+  "Description": "ClanIronSim HawkNet command-line server configuration.",
+  "Server": {
+    "Host": "127.0.0.1", "Port": 7777, "MaxPlayers": 64, "MaxConcurrentConnections": 100,
+    "SessionTimeoutSeconds": 30, "HeartbeatIntervalSeconds": 15, "HeartbeatTimeoutSeconds": 30,
+    "NextPlayerIdStart": 1000, "UseTls": false, "LogLevel": "Information",
+    "AllowedIPs": [ "127.0.0.1", "::1" ]
+  },
+  "Networking": { "Protocol": "Tcp", "ReceiveBufferSize": 8192, "SendBufferSize": 8192, "OutboundQueueCapacity": 256, "UdpReceiveQueueCapacity": 256, "UdpDelivery": { "MaxDatagramBytes": 1200, "ReliableWindowSize": 32, "ReorderCapacity": 32, "InitialRetransmitMilliseconds": 250, "MinimumRetransmitMilliseconds": 100, "MaximumRetransmitMilliseconds": 2000, "MaximumRetries": 6, "AcknowledgementDelayMilliseconds": 20 }, "NoDelay": true },
+  "Simulation": { "TickRateHz": 30, "MaxCatchUpTicks": 5, "InboundQueueCapacity": 4096, "MaxCommandsPerTick": 512 },
+  "Match": { "VariantId": "clan_iron", "Phases": [ { "PhaseId": "match", "Seconds": -1 } ], "CompletedTransitionStateId": "" },
+  "GameMode": { "InitialStateId": "match", "States": [ { "Id": "match", "Transitions": [] } ] },
+  "Security": { "HandshakeTimeoutSeconds": 10, "MaxCommandPayloadBytes": 16384, "MaxGameStateMessageBytes": 32768, "MaxInvalidPacketsPerConnection": 5, "MaxPacketsPerWindow": 300, "PacketRateWindowSeconds": 10 },
+  "Modules": { "Services": [ "core", "player_identity", "diagnostics", "chat_service" ], "GameStates": [ "match" ] }
+}

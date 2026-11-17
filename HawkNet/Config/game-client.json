@@ -1,0 +1,16 @@
+{
+  "Description": "HawkNet game client configuration. Edit values to match the target server.",
+  "Server": {
+    "Host": "127.0.0.1",
+    "Port": 7777
+  },
+  "Networking": {
+	"Protocol": "Tcp",
+    "HeartbeatIntervalSeconds": 15,
+    "ReconnectEnabled": true,
+    "ReceiveBufferSize": 8192,
+    "SendBufferSize": 8192,
+    "UdpDelivery": { "MaxDatagramBytes": 1200, "ReliableWindowSize": 32, "ReorderCapacity": 32, "InitialRetransmitMilliseconds": 250, "MinimumRetransmitMilliseconds": 100, "MaximumRetransmitMilliseconds": 2000, "MaximumRetries": 6, "AcknowledgementDelayMilliseconds": 20 },
+    "NoDelay": true
+  }
+}

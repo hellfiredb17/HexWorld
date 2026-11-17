@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>ClanIronSim.HawkNet</AssemblyName>
+    <RootNamespace>ClanIronSim.HawkNet</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ClanIronSim\ClanIronSim.csproj" />
+    <ProjectReference Include="..\HawkNet\HawkNet.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>ClanIronSim.CommandLine</AssemblyName>
+    <RootNamespace>ClanIronSim.CommandLine</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HawkNet.CommandLine\HawkNet.CommandLine.csproj" />
+    <ProjectReference Include="..\ClanIronSim.HawkNet\ClanIronSim.HawkNet.csproj" />
+    <ProjectReference Include="..\ClanIronSim\ClanIronSim.csproj" />
+    <ProjectReference Include="..\HawkNet\HawkNet.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Config\game-client.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Config\game-server.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\ClanIronSim\Resources\WorldData\*.json" Link="Resources\WorldData\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

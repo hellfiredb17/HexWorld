@@ -1,0 +1,105 @@
+{
+  "Description": "HawkNet game server configuration. Edit values to match environment.",
+  "Server": {
+    "Host": "0.0.0.0",
+    "Port": 7777,
+    "MaxPlayers": 64,
+    "MaxConcurrentConnections": 100,
+    "SessionTimeoutSeconds": 30,
+    "HeartbeatIntervalSeconds": 15,
+    "HeartbeatTimeoutSeconds": 30,
+    "NextPlayerIdStart": 1000,
+    "UseTls": false,
+    "CertificatePath": "",
+    "DataPath": "Data",
+    "LogLevel": "Information",
+    "EnableVerboseLogging": false,
+    "AllowedIPs": [ "127.0.0.1", "::1" ]
+  },
+  "Networking": {
+    "Protocol": "Tcp",
+    "ReceiveBufferSize": 8192,
+    "SendBufferSize": 8192,
+    "OutboundQueueCapacity": 256,
+	"UdpReceiveQueueCapacity": 256,
+    "UdpDelivery": { "MaxDatagramBytes": 1200, "ReliableWindowSize": 32, "ReorderCapacity": 32, "InitialRetransmitMilliseconds": 250, "MinimumRetransmitMilliseconds": 100, "MaximumRetransmitMilliseconds": 2000, "MaximumRetries": 6, "AcknowledgementDelayMilliseconds": 20 },
+    "NoDelay": true
+  },
+  "Simulation": {
+    "TickRateHz": 30,
+    "MaxCatchUpTicks": 5,
+    "InboundQueueCapacity": 4096,
+    "MaxCommandsPerTick": 512
+  },
+  "Chat": {
+    "MaxHistoryMessages": 100,
+    "MaxMessageLength": 512,
+    "MaxMessageBytes": 2048,
+    "MaxMessagesPerWindow": 5,
+    "MessageRateWindowSeconds": 10
+  },
+  "PlayerIdentity": {
+    "MaxDisplayNameLength": 24,
+    "DefaultDisplayNameFormat": "Player {0}"
+  },
+  "ChatLobby": {
+    "ReadyThresholdPercent": 100,
+    "TransitionCountdownSeconds": 5,
+    "ReadyTransitionStateId": "",
+    "MaxReadyPayloadBytes": 4096
+  },
+  "Match": {
+    "VariantId": "base",
+    "Phases": [
+      {
+        "PhaseId": "pre_match",
+        "Seconds": 5
+      },
+      {
+        "PhaseId": "match",
+        "Seconds": 300
+      },
+      {
+        "PhaseId": "post_match",
+        "Seconds": 10
+      }
+    ],
+    "CompletedTransitionStateId": ""
+  },
+  "GameMode": {
+    "InitialStateId": "chat_lobby",
+    "States": [
+      {
+        "Id": "chat_lobby",
+        "Transitions": []
+      }
+    ]
+  },
+  "Security": {
+    "HandshakeTimeoutSeconds": 10,
+    "MaxCommandPayloadBytes": 16384,
+    "MaxGameStateMessageBytes": 32768,
+    "MaxInvalidPacketsPerConnection": 5,
+    "MaxPacketsPerWindow": 300,
+    "PacketRateWindowSeconds": 10
+  },
+  "Diagnostics": {
+    "EnableConsoleLogging": false,
+    "LogIntervalSeconds": 30
+  },
+  "Maintenance": {
+    "AutoRestart": false,
+    "RestartWindowUtc": "03:00-03:15"
+  },
+  "Modules": {
+    "Services": [
+      "core",
+      "player_identity",
+      "diagnostics",
+      "chat_service"
+    ],
+    "GameStates": [
+      "chat_lobby"
+    ]
+  }
+}

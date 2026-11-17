@@ -1,0 +1,249 @@
+{
+  "Id": "test rect island",
+  "Name": "Test Rect Island",
+  "Map": {
+    "GeometryVersion": 1,
+    "Id": "test rect island map",
+    "Name": "Test Rect Island Map",
+    "Description": "Milestone A rectangle island world data.",
+    "TileSettings": {
+      "Shape": "Rectangle",
+      "Size": {
+        "X": 1,
+        "Z": 1
+      },
+      "HexOrientation": "PointyTop"
+    },
+    "Regions": [
+      {
+        "Id": "rect island",
+        "DisplayName": "Rect Island",
+        "Sections": [
+          {
+            "Id": "rect_island_0_0",
+            "GridPosition": {
+              "X": 0,
+              "Z": 0
+            },
+            "Offset": {
+              "X": 0,
+              "Z": 0
+            },
+            "Section": {
+              "Width": 5,
+              "Depth": 5,
+              "Tiles": [
+                {
+                  "GridPosition": { "X": 0, "Z": 0 },
+                  "Shape": "Rectangle",
+                  "LocalPosition": { "X": 0, "Z": 0 },
+                  "WorldPosition": { "X": 0, "Z": 0 },
+                  "Size": { "X": 1, "Z": 1 },
+                  "Attributes": [ { "Id": "wall", "ModifierKey": "blocking", "Amount": 0 } ]
+                },
+                {
+                  "GridPosition": { "X": 1, "Z": 0 },
+                  "Shape": "Rectangle",
+                  "LocalPosition": { "X": 1, "Z": 0 },
+                  "WorldPosition": { "X": 1, "Z": 0 },
+                  "Size": { "X": 1, "Z": 1 },
+                  "Attributes": [ { "Id": "wall", "ModifierKey": "blocking", "Amount": 0 } ]
+                },
+                {
+                  "GridPosition": { "X": 2, "Z": 0 },
+                  "Shape": "Rectangle",
+                  "LocalPosition": { "X": 2, "Z": 0 },
+                  "WorldPosition": { "X": 2, "Z": 0 },
+                  "Size": { "X": 1, "Z": 1 },
+                  "Attributes": [ { "Id": "wall", "ModifierKey": "blocking", "Amount": 0 } ]
+                },
+                {
+                  "GridPosition": { "X": 3, "Z": 0 },
+                  "Shape": "Rectangle",
+                  "LocalPosition": { "X": 3, "Z": 0 },
+                  "WorldPosition": { "X": 3, "Z": 0 },
+                  "Size": { "X": 1, "Z": 1 },
+                  "Attributes": [ { "Id": "wall", "ModifierKey": "blocking", "Amount": 0 } ]
+                },
+                {
+                  "GridPosition": { "X": 4, "Z": 0 },
+                  "Shape": "Rectangle",
+                  "LocalPosition": { "X": 4, "Z": 0 },
+                  "WorldPosition": { "X": 4, "Z": 0 },
+                  "Size": { "X": 1, "Z": 1 },
+                  "Attributes": [ { "Id": "wall", "ModifierKey": "blocking", "Amount": 0 } ]
+                },
+                {
+                  "GridPosition": { "X": 0, "Z": 1 },
+                  "Shape": "Rectangle",
+                  "LocalPosition": { "X": 0, "Z": 1 },
+                  "WorldPosition": { "X": 0, "Z": 1 },
+                  "Size": { "X": 1, "Z": 1 },
+                  "Attributes": [ { "Id": "wall", "ModifierKey": "blocking", "Amount": 0 } ]
+                },
+                {
+                  "GridPosition": { "X": 1, "Z": 1 },
+                  "Shape": "Rectangle",
+                  "LocalPosition": { "X": 1, "Z": 1 },
+                  "WorldPosition": { "X": 1, "Z": 1 },
+                  "Size": { "X": 1, "Z": 1 },
+                  "Attributes": []
+                },
+                {
+                  "GridPosition": { "X": 2, "Z": 1 },
+                  "Shape": "Rectangle",
+                  "LocalPosition": { "X": 2, "Z": 1 },
+                  "WorldPosition": { "X": 2, "Z": 1 },
+                  "Size": { "X": 1, "Z": 1 },
+                  "Attributes": []
+                },
+                {
+                  "GridPosition": { "X": 3, "Z": 1 },
+                  "Shape": "Rectangle",
+                  "LocalPosition": { "X": 3, "Z": 1 },
+                  "WorldPosition": { "X": 3, "Z": 1 },
+                  "Size": { "X": 1, "Z": 1 },
+                  "Attributes": []
+                },
+                {
+                  "GridPosition": { "X": 4, "Z": 1 },
+                  "Shape": "Rectangle",
+                  "LocalPosition": { "X": 4, "Z": 1 },
+                  "WorldPosition": { "X": 4, "Z": 1 },
+                  "Size": { "X": 1, "Z": 1 },
+                  "Attributes": [ { "Id": "wall", "ModifierKey": "blocking", "Amount": 0 } ]
+                },
+                {
+                  "GridPosition": { "X": 0, "Z": 2 },
+                  "Shape": "Rectangle",
+                  "LocalPosition": { "X": 0, "Z": 2 },
+                  "WorldPosition": { "X": 0, "Z": 2 },
+                  "Size": { "X": 1, "Z": 1 },
+                  "Attributes": [ { "Id": "wall", "ModifierKey": "blocking", "Amount": 0 } ]
+                },
+                {
+                  "GridPosition": { "X": 1, "Z": 2 },
+                  "Shape": "Rectangle",
+                  "LocalPosition": { "X": 1, "Z": 2 },
+                  "WorldPosition": { "X": 1, "Z": 2 },
+                  "Size": { "X": 1, "Z": 1 },
+                  "Attributes": []
+                },
+                {
+                  "GridPosition": { "X": 2, "Z": 2 },
+                  "Shape": "Rectangle",
+                  "LocalPosition": { "X": 2, "Z": 2 },
+                  "WorldPosition": { "X": 2, "Z": 2 },
+                  "Size": { "X": 1, "Z": 1 },
+                  "Attributes": [ { "Id": "player spawner", "ModifierKey": "spawner", "Amount": 0 } ]
+                },
+                {
+                  "GridPosition": { "X": 3, "Z": 2 },
+                  "Shape": "Rectangle",
+                  "LocalPosition": { "X": 3, "Z": 2 },
+                  "WorldPosition": { "X": 3, "Z": 2 },
+                  "Size": { "X": 1, "Z": 1 },
+                  "Attributes": []
+                },
+                {
+                  "GridPosition": { "X": 4, "Z": 2 },
+                  "Shape": "Rectangle",
+                  "LocalPosition": { "X": 4, "Z": 2 },
+                  "WorldPosition": { "X": 4, "Z": 2 },
+                  "Size": { "X": 1, "Z": 1 },
+                  "Attributes": [ { "Id": "wall", "ModifierKey": "blocking", "Amount": 0 } ]
+                },
+                {
+                  "GridPosition": { "X": 0, "Z": 3 },
+                  "Shape": "Rectangle",
+                  "LocalPosition": { "X": 0, "Z": 3 },
+                  "WorldPosition": { "X": 0, "Z": 3 },
+                  "Size": { "X": 1, "Z": 1 },
+                  "Attributes": [ { "Id": "wall", "ModifierKey": "blocking", "Amount": 0 } ]
+                },
+                {
+                  "GridPosition": { "X": 1, "Z": 3 },
+                  "Shape": "Rectangle",
+                  "LocalPosition": { "X": 1, "Z": 3 },
+                  "WorldPosition": { "X": 1, "Z": 3 },
+                  "Size": { "X": 1, "Z": 1 },
+                  "Attributes": []
+                },
+                {
+                  "GridPosition": { "X": 2, "Z": 3 },
+                  "Shape": "Rectangle",
+                  "LocalPosition": { "X": 2, "Z": 3 },
+                  "WorldPosition": { "X": 2, "Z": 3 },
+                  "Size": { "X": 1, "Z": 1 },
+                  "Attributes": []
+                },
+                {
+                  "GridPosition": { "X": 3, "Z": 3 },
+                  "Shape": "Rectangle",
+                  "LocalPosition": { "X": 3, "Z": 3 },
+                  "WorldPosition": { "X": 3, "Z": 3 },
+                  "Size": { "X": 1, "Z": 1 },
+                  "Attributes": []
+                },
+                {
+                  "GridPosition": { "X": 4, "Z": 3 },
+                  "Shape": "Rectangle",
+                  "LocalPosition": { "X": 4, "Z": 3 },
+                  "WorldPosition": { "X": 4, "Z": 3 },
+                  "Size": { "X": 1, "Z": 1 },
+                  "Attributes": [ { "Id": "wall", "ModifierKey": "blocking", "Amount": 0 } ]
+                },
+                {
+                  "GridPosition": { "X": 0, "Z": 4 },
+                  "Shape": "Rectangle",
+                  "LocalPosition": { "X": 0, "Z": 4 },
+                  "WorldPosition": { "X": 0, "Z": 4 },
+                  "Size": { "X": 1, "Z": 1 },
+                  "Attributes": [ { "Id": "wall", "ModifierKey": "blocking", "Amount": 0 } ]
+                },
+                {
+                  "GridPosition": { "X": 1, "Z": 4 },
+                  "Shape": "Rectangle",
+                  "LocalPosition": { "X": 1, "Z": 4 },
+                  "WorldPosition": { "X": 1, "Z": 4 },
+                  "Size": { "X": 1, "Z": 1 },
+                  "Attributes": [ { "Id": "wall", "ModifierKey": "blocking", "Amount": 0 } ]
+                },
+                {
+                  "GridPosition": { "X": 2, "Z": 4 },
+                  "Shape": "Rectangle",
+                  "LocalPosition": { "X": 2, "Z": 4 },
+                  "WorldPosition": { "X": 2, "Z": 4 },
+                  "Size": { "X": 1, "Z": 1 },
+                  "Attributes": [ { "Id": "wall", "ModifierKey": "blocking", "Amount": 0 } ]
+                },
+                {
+                  "GridPosition": { "X": 3, "Z": 4 },
+                  "Shape": "Rectangle",
+                  "LocalPosition": { "X": 3, "Z": 4 },
+                  "WorldPosition": { "X": 3, "Z": 4 },
+                  "Size": { "X": 1, "Z": 1 },
+                  "Attributes": [ { "Id": "wall", "ModifierKey": "blocking", "Amount": 0 } ]
+                },
+                {
+                  "GridPosition": { "X": 4, "Z": 4 },
+                  "Shape": "Rectangle",
+                  "LocalPosition": { "X": 4, "Z": 4 },
+                  "WorldPosition": { "X": 4, "Z": 4 },
+                  "Size": { "X": 1, "Z": 1 },
+                  "Attributes": [ { "Id": "wall", "ModifierKey": "blocking", "Amount": 0 } ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "Entities": [],
+  "Interactables": [],
+  "Players": {
+    "Profiles": [],
+    "Runtimes": []
+  }
+}

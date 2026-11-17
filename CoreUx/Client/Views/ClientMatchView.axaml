@@ -1,0 +1,235 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:commonVm="using:HawkNet.CoreUx.Common.ViewModels"
+             xmlns:clientViews="using:HawkNet.CoreUx.Client.Views"
+             xmlns:vm="using:HawkNet.CoreUx.Client.ViewModels"
+             x:Class="HawkNet.CoreUx.Client.Views.ClientMatchView"
+             x:DataType="vm:ClientMatchViewModel">
+  <Grid Margin="{StaticResource PagePadding}"
+        RowDefinitions="Auto,*"
+        ColumnDefinitions="320,*"
+        ColumnSpacing="{StaticResource SectionGap}"
+        RowSpacing="{StaticResource SectionGap}">
+    <Grid Grid.Row="0"
+          Grid.Column="0"
+          Grid.ColumnSpan="2"
+          ColumnDefinitions="*,Auto"
+          ColumnSpacing="10">
+      <StackPanel Grid.Column="0">
+        <TextBlock Text="{Binding Title}"
+                   FontSize="{StaticResource TitleFontSize}"
+                   FontWeight="SemiBold"
+                   Foreground="{DynamicResource AppForegroundBrush}" />
+        <TextBlock Text="{Binding StatusMessage}"
+                   Classes="status" />
+      </StackPanel>
+      <Button Grid.Column="1"
+              Classes="danger"
+              Command="{Binding DisconnectCommand}"
+              Content="Disconnect" />
+    </Grid>
+
+    <Border Grid.Row="1"
+            Grid.Column="0"
+            Classes="settings-section">
+      <Grid RowDefinitions="Auto,*,Auto,Auto"
+            RowSpacing="10">
+        <TextBlock Grid.Row="0"
+                   Classes="section-title"
+                   Text="Chat" />
+        <ScrollViewer Grid.Row="1">
+          <ItemsControl ItemsSource="{Binding ChatMessages}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate DataType="commonVm:ChatMessageViewModel">
+                <StackPanel Margin="0,0,0,12">
+                  <Grid ColumnDefinitions="*,Auto">
+                    <TextBlock Grid.Column="0"
+                               Text="{Binding SenderLabel}"
+                               FontWeight="SemiBold"
+                               Foreground="{Binding SenderBrush}" />
+                    <TextBlock Grid.Column="1"
+                               Text="{Binding TimestampText}"
+                               Foreground="{DynamicResource MutedForegroundBrush}" />
+                  </Grid>
+                  <TextBlock Text="{Binding Message}"
+                             TextWrapping="Wrap"
+                             Foreground="{DynamicResource AppForegroundBrush}" />
+                </StackPanel>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </ScrollViewer>
+        <Grid Grid.Row="2"
+              ColumnDefinitions="*,Auto"
+              ColumnSpacing="8">
+          <TextBox Grid.Column="0"
+                   Text="{Binding PendingMessage, Mode=TwoWay}"
+                   PlaceholderText="Send a message" />
+          <Button Grid.Column="1"
+                  Classes="primary"
+                  Command="{Binding SendMessageCommand}"
+                  Content="Send" />
+        </Grid>
+      </Grid>
+    </Border>
+
+    <Grid Grid.Row="1"
+          Grid.Column="1"
+          RowDefinitions="Auto,*"
+          RowSpacing="{StaticResource SectionGap}">
+      <Border Grid.Row="0"
+              Classes="settings-section">
+        <Grid RowDefinitions="Auto,Auto"
+              ColumnDefinitions="*,*"
+              ColumnSpacing="18"
+              RowSpacing="14">
+          <StackPanel Grid.Row="0"
+                      Grid.Column="0">
+            <TextBlock Classes="field-label" Text="Variant" />
+            <TextBlock Text="{Binding VariantId}"
+                       FontSize="18"
+                       FontWeight="SemiBold"
+                       Foreground="{DynamicResource AppForegroundBrush}" />
+          </StackPanel>
+          <StackPanel Grid.Row="0"
+                      Grid.Column="1">
+            <TextBlock Classes="field-label" Text="Phase" />
+            <TextBlock Text="{Binding PhaseText}"
+                       FontSize="18"
+                       FontWeight="SemiBold"
+                       Foreground="{DynamicResource AppForegroundBrush}" />
+          </StackPanel>
+          <StackPanel Grid.Row="1"
+                      Grid.Column="0">
+            <TextBlock Classes="field-label" Text="Players" />
+            <TextBlock Text="{Binding PlayerCountText}"
+                       FontSize="18"
+                       FontWeight="SemiBold"
+                       Foreground="{DynamicResource AppForegroundBrush}" />
+          </StackPanel>
+          <StackPanel Grid.Row="1"
+                      Grid.Column="1">
+            <TextBlock Classes="field-label" Text="Phase remaining" />
+            <TextBlock Text="{Binding PhaseRemainingText}"
+                       FontSize="18"
+                       FontWeight="SemiBold"
+                       Foreground="{DynamicResource AppForegroundBrush}" />
+          </StackPanel>
+        </Grid>
+      </Border>
+
+      <Grid Grid.Row="1"
+            ColumnDefinitions="*,300"
+            ColumnSpacing="{StaticResource SectionGap}">
+        <Border Grid.Column="0"
+                Classes="settings-section">
+          <Grid RowDefinitions="Auto,*,Auto,Auto"
+                RowSpacing="12">
+            <Grid Grid.Row="0"
+                  RowDefinitions="Auto,Auto"
+                  RowSpacing="2">
+              <Grid Grid.Row="0"
+                    ColumnDefinitions="*,Auto"
+                    ColumnSpacing="10">
+                <TextBlock Grid.Column="0"
+                         Classes="section-title"
+                         Text="World" />
+                <TextBlock Grid.Column="1"
+                         Text="{Binding World.RegionName}"
+                         Foreground="{DynamicResource MutedForegroundBrush}" />
+              </Grid>
+              <WrapPanel Grid.Row="1"
+                         Orientation="Horizontal">
+                <CheckBox Content="Path"
+                          Margin="0,0,12,0"
+                          IsChecked="{Binding World.ShowMovementPaths, Mode=TwoWay}" />
+                <CheckBox Content="Server"
+                          Margin="0,0,12,0"
+                          IsChecked="{Binding World.ShowServerPositionMarkers, Mode=TwoWay}" />
+                <CheckBox Content="Render"
+                          Margin="0,0,12,0"
+                          IsChecked="{Binding World.ShowRenderPositionMarkers, Mode=TwoWay}" />
+                <CheckBox Content="Correction"
+                          IsChecked="{Binding World.ShowCorrectionLabels, Mode=TwoWay}" />
+              </WrapPanel>
+            </Grid>
+            <Border Grid.Row="1"
+                    Background="{DynamicResource PanelBackgroundBrush}"
+                    BorderBrush="{DynamicResource PanelBorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    MinHeight="360">
+              <clientViews:WorldMapView World="{Binding World}" />
+            </Border>
+            <TextBlock Grid.Row="2"
+                       Text="{Binding World.StatusText}"
+                       Classes="status" />
+            <Grid Grid.Row="3"
+                  RowDefinitions="Auto,Auto,Auto,Auto"
+                  RowSpacing="8">
+              <TextBlock Grid.Row="0"
+                         Classes="section-title"
+                         Text="Debug Command" />
+              <StackPanel Grid.Row="1">
+                <TextBlock Classes="field-label" Text="Command id" />
+                <TextBox Text="{Binding CommandId, Mode=TwoWay}" />
+              </StackPanel>
+              <StackPanel Grid.Row="2">
+                <TextBlock Classes="field-label" Text="Payload" />
+                <TextBox Text="{Binding CommandPayload, Mode=TwoWay}"
+                         AcceptsReturn="True"
+                         MinHeight="70" />
+              </StackPanel>
+              <Button Grid.Row="3"
+                      Classes="primary"
+                      Command="{Binding SendCommandCommand}"
+                      Content="Send Command"
+                      HorizontalAlignment="Right" />
+            </Grid>
+          </Grid>
+        </Border>
+
+        <Border Grid.Column="1"
+                Classes="settings-section">
+          <Grid RowDefinitions="Auto,Auto,*"
+                RowSpacing="12">
+            <TextBlock DockPanel.Dock="Top"
+                       Classes="section-title"
+                       Text="Players" />
+            <StackPanel Grid.Row="1"
+                        IsVisible="{Binding World.HasSelectedEntity}">
+              <TextBlock Classes="field-label" Text="Selected" />
+              <TextBlock Text="{Binding World.SelectedEntityDisplayName}"
+                         FontSize="18"
+                         FontWeight="SemiBold"
+                         Foreground="{DynamicResource AppForegroundBrush}" />
+              <TextBlock Text="{Binding World.SelectedEntityMovementStatus}"
+                         Classes="status" />
+            </StackPanel>
+            <ScrollViewer Grid.Row="2">
+              <ItemsControl ItemsSource="{Binding Players}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate DataType="commonVm:MatchPlayerViewModel">
+                    <Border BorderBrush="{DynamicResource PanelBorderBrush}"
+                            BorderThickness="0,0,0,1"
+                            Padding="0,8">
+                      <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock Grid.Column="0"
+                                   Text="{Binding DisplayLabel}"
+                                   Foreground="{DynamicResource AppForegroundBrush}"
+                                   TextTrimming="CharacterEllipsis" />
+                        <TextBlock Grid.Column="1"
+                                   Text="{Binding ConnectionText}"
+                                   Foreground="{DynamicResource MutedForegroundBrush}" />
+                      </Grid>
+                    </Border>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </ScrollViewer>
+          </Grid>
+        </Border>
+      </Grid>
+    </Grid>
+  </Grid>
+</UserControl>

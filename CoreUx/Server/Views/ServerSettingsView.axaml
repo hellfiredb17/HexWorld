@@ -1,0 +1,250 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:HawkNet.CoreUx.Server.ViewModels"
+             x:Class="HawkNet.CoreUx.Server.Views.ServerSettingsView"
+             x:DataType="vm:ServerSettingsViewModel">
+  <ScrollViewer>
+    <StackPanel Margin="{StaticResource PagePadding}" Spacing="{StaticResource SectionGap}">
+      <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="12">
+        <Button Grid.Row="0"
+                Grid.Column="0"
+                Command="{Binding BackCommand}"
+                Content="&#x2039; Back"
+                VerticalAlignment="Center" />
+        <TextBlock Grid.Row="0"
+                   Grid.Column="1"
+                   Text="Server Loader"
+                   FontSize="{StaticResource TitleFontSize}"
+                   FontWeight="SemiBold"
+                   Foreground="{DynamicResource AppForegroundBrush}" />
+        <Button Grid.Row="0"
+                Grid.Column="2"
+                Classes="primary"
+                Command="{Binding StartServerCommand}"
+                Content="Start Server" />
+        <TextBlock Grid.Row="1"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="3"
+                   Classes="status"
+                   Text="{Binding StatusMessage}" />
+      </Grid>
+
+	  <Border Classes="settings-section">
+		<Grid ColumnDefinitions="*,Auto,Auto,Auto" ColumnSpacing="8">
+		  <TextBox Text="{Binding ProfilePath, Mode=TwoWay}" PlaceholderText="Configuration profile path" />
+		  <Button Grid.Column="1" Content="Load" Command="{Binding LoadProfileCommand}" />
+		  <Button Grid.Column="2" Content="Validate" Command="{Binding ValidateCommand}" />
+		  <Button Grid.Column="3" Content="Save" Command="{Binding SaveProfileCommand}" />
+		</Grid>
+	  </Border>
+
+      <Border Classes="settings-section">
+        <StackPanel>
+          <TextBlock Classes="section-title" Text="Server" />
+          <WrapPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Host" />
+              <ComboBox ItemsSource="{Binding HostOptions}"
+                        Text="{Binding Host, Mode=TwoWay}"
+                        IsEditable="True" />
+            </StackPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Port" />
+              <TextBox Text="{Binding Port, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Max players" />
+              <TextBox Text="{Binding MaxPlayers, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Max concurrent connections" />
+              <TextBox Text="{Binding MaxConcurrentConnections, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Session timeout seconds" />
+              <TextBox Text="{Binding SessionTimeoutSeconds, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Heartbeat interval seconds" />
+              <TextBox Text="{Binding HeartbeatIntervalSeconds, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Heartbeat timeout seconds" />
+              <TextBox Text="{Binding HeartbeatTimeoutSeconds, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Next player id start" />
+              <TextBox Text="{Binding NextPlayerIdStart, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Log level" />
+              <ComboBox ItemsSource="{Binding LogLevelOptions}"
+                        Text="{Binding LogLevel, Mode=TwoWay}"
+                        IsEditable="True" />
+            </StackPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Verbose logging" />
+              <CheckBox IsChecked="{Binding EnableVerboseLogging, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Classes="field-wide">
+              <TextBlock Classes="field-label" Text="Allowed IPs" />
+              <TextBox Text="{Binding AllowedIPs, Mode=TwoWay}"
+                       AcceptsReturn="True"
+                       MinHeight="74" />
+            </StackPanel>
+          </WrapPanel>
+        </StackPanel>
+      </Border>
+
+      <Border Classes="settings-section">
+        <StackPanel>
+          <TextBlock Classes="section-title" Text="Networking" />
+          <WrapPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Protocol" />
+              <ComboBox ItemsSource="{Binding ProtocolOptions}"
+                        SelectedItem="{Binding Protocol, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Receive buffer size" />
+              <TextBox Text="{Binding ReceiveBufferSize, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Send buffer size" />
+              <TextBox Text="{Binding SendBufferSize, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="No delay" />
+              <CheckBox IsChecked="{Binding NoDelay, Mode=TwoWay}" />
+            </StackPanel>
+			<StackPanel Classes="field"><TextBlock Classes="field-label" Text="Outbound queue capacity" /><TextBox Text="{Binding OutboundQueueCapacity, Mode=TwoWay}" /></StackPanel>
+          </WrapPanel>
+        </StackPanel>
+      </Border>
+
+      <Border Classes="settings-section" IsVisible="{Binding IsUdpSelected}">
+        <StackPanel Spacing="8">
+          <TextBlock Classes="section-title" Text="Reliable UDP delivery (restart required)" />
+          <TextBlock Classes="status"
+                     Text="Protocol v3 uses a strict datagram budget. Window and timing changes apply the next time the server starts." />
+          <WrapPanel>
+            <StackPanel Classes="field"><TextBlock Classes="field-label" Text="Maximum datagram bytes" /><TextBox Text="{Binding UdpMaxDatagramBytes, Mode=TwoWay}" /></StackPanel>
+            <StackPanel Classes="field"><TextBlock Classes="field-label" Text="Reliable window size" /><TextBox Text="{Binding UdpReliableWindowSize, Mode=TwoWay}" /></StackPanel>
+            <StackPanel Classes="field"><TextBlock Classes="field-label" Text="Reorder capacity" /><TextBox Text="{Binding UdpReorderCapacity, Mode=TwoWay}" /></StackPanel>
+            <StackPanel Classes="field"><TextBlock Classes="field-label" Text="Receive queue capacity" /><TextBox Text="{Binding UdpReceiveQueueCapacity, Mode=TwoWay}" /></StackPanel>
+            <StackPanel Classes="field"><TextBlock Classes="field-label" Text="Initial retransmit (ms)" /><TextBox Text="{Binding UdpInitialRetransmitMilliseconds, Mode=TwoWay}" /></StackPanel>
+            <StackPanel Classes="field"><TextBlock Classes="field-label" Text="Minimum retransmit (ms)" /><TextBox Text="{Binding UdpMinimumRetransmitMilliseconds, Mode=TwoWay}" /></StackPanel>
+            <StackPanel Classes="field"><TextBlock Classes="field-label" Text="Maximum retransmit (ms)" /><TextBox Text="{Binding UdpMaximumRetransmitMilliseconds, Mode=TwoWay}" /></StackPanel>
+            <StackPanel Classes="field"><TextBlock Classes="field-label" Text="Maximum retries" /><TextBox Text="{Binding UdpMaximumRetries, Mode=TwoWay}" /></StackPanel>
+            <StackPanel Classes="field"><TextBlock Classes="field-label" Text="Acknowledgement delay (ms)" /><TextBox Text="{Binding UdpAcknowledgementDelayMilliseconds, Mode=TwoWay}" /></StackPanel>
+          </WrapPanel>
+        </StackPanel>
+      </Border>
+
+      <Border Classes="settings-section">
+        <StackPanel>
+          <TextBlock Classes="section-title" Text="Simulation" />
+          <WrapPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Tick rate hz" />
+              <TextBox Text="{Binding TickRateHz, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Max catch-up ticks" />
+              <TextBox Text="{Binding MaxCatchUpTicks, Mode=TwoWay}" />
+            </StackPanel>
+			<StackPanel Classes="field"><TextBlock Classes="field-label" Text="Inbound queue capacity" /><TextBox Text="{Binding InboundQueueCapacity, Mode=TwoWay}" /></StackPanel>
+			<StackPanel Classes="field"><TextBlock Classes="field-label" Text="Commands per tick" /><TextBox Text="{Binding MaxCommandsPerTick, Mode=TwoWay}" /></StackPanel>
+          </WrapPanel>
+        </StackPanel>
+      </Border>
+
+      <Border Classes="settings-section">
+        <StackPanel>
+          <TextBlock Classes="section-title" Text="Chat" />
+          <WrapPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Max history messages" />
+              <TextBox Text="{Binding MaxHistoryMessages, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Max message length" />
+              <TextBox Text="{Binding MaxMessageLength, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Max message bytes" />
+              <TextBox Text="{Binding MaxMessageBytes, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Max messages per window" />
+              <TextBox Text="{Binding MaxMessagesPerWindow, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Rate window seconds" />
+              <TextBox Text="{Binding MessageRateWindowSeconds, Mode=TwoWay}" />
+            </StackPanel>
+          </WrapPanel>
+        </StackPanel>
+      </Border>
+
+      <Border Classes="settings-section">
+        <StackPanel>
+          <TextBlock Classes="section-title" Text="Security" />
+          <WrapPanel>
+			<StackPanel Classes="field"><TextBlock Classes="field-label" Text="Handshake timeout seconds" /><TextBox Text="{Binding HandshakeTimeoutSeconds, Mode=TwoWay}" /></StackPanel>
+			<StackPanel Classes="field"><TextBlock Classes="field-label" Text="Max command payload bytes" /><TextBox Text="{Binding MaxCommandPayloadBytes, Mode=TwoWay}" /></StackPanel>
+			<StackPanel Classes="field"><TextBlock Classes="field-label" Text="Max game message bytes" /><TextBox Text="{Binding MaxGameStateMessageBytes, Mode=TwoWay}" /></StackPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Max invalid packets" />
+              <TextBox Text="{Binding MaxInvalidPacketsPerConnection, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Max packets per window" />
+              <TextBox Text="{Binding MaxPacketsPerWindow, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Packet window seconds" />
+              <TextBox Text="{Binding PacketRateWindowSeconds, Mode=TwoWay}" />
+            </StackPanel>
+          </WrapPanel>
+        </StackPanel>
+      </Border>
+
+      <Border Classes="settings-section">
+        <StackPanel>
+          <TextBlock Classes="section-title" Text="Diagnostics" />
+          <WrapPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Console logging" />
+              <CheckBox IsChecked="{Binding EnableConsoleLogging, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Classes="field">
+              <TextBlock Classes="field-label" Text="Log interval seconds" />
+              <TextBox Text="{Binding LogIntervalSeconds, Mode=TwoWay}" />
+            </StackPanel>
+          </WrapPanel>
+        </StackPanel>
+      </Border>
+
+      <Border Classes="settings-section">
+        <StackPanel>
+          <TextBlock Classes="section-title" Text="Modules" />
+          <WrapPanel>
+            <StackPanel Classes="field-wide">
+              <TextBlock Classes="field-label" Text="Services" />
+              <TextBox Text="{Binding ServiceModules, Mode=TwoWay}"
+                       AcceptsReturn="True"
+                       MinHeight="96" />
+            </StackPanel>
+            <StackPanel Classes="field-wide">
+              <TextBlock Classes="field-label" Text="Game states" />
+              <TextBox Text="{Binding GameStateModules, Mode=TwoWay}"
+                       AcceptsReturn="True"
+                       MinHeight="96" />
+            </StackPanel>
+          </WrapPanel>
+        </StackPanel>
+      </Border>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

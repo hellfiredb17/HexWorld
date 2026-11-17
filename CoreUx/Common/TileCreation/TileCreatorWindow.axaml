@@ -1,0 +1,5 @@
+<Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:local="using:HawkNet.CoreUx.Common.TileCreation" x:Class="HawkNet.CoreUx.Common.TileCreation.TileCreatorWindow"
+ Title="Tile Creator" Width="1280" Height="900" MinWidth="900" MinHeight="600" CanResize="True" WindowDecorations="None">
+ <local:TileCreatorView x:Name="Creator" />
+</Window>

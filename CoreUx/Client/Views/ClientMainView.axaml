@@ -1,0 +1,61 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:commonViews="using:HawkNet.CoreUx.Common.Views"
+        xmlns:commonVm="using:HawkNet.CoreUx.Common.ViewModels"
+        xmlns:vm="using:HawkNet.CoreUx.Client.ViewModels"
+        xmlns:views="using:HawkNet.CoreUx.Client.Views"
+        x:Class="HawkNet.CoreUx.Client.Views.ClientMainView"
+        x:DataType="vm:ClientMainViewModel"
+        Title="{Binding Title}"
+        Width="1180"
+        Height="820"
+        MinWidth="860"
+        MinHeight="620">
+  <Window.DataTemplates>
+    <DataTemplate DataType="commonVm:MainMenuViewModel">
+      <commonViews:MainMenuView />
+    </DataTemplate>
+    <DataTemplate DataType="vm:ConnectionSetupViewModel">
+      <views:ConnectionSetupView />
+    </DataTemplate>
+    <DataTemplate DataType="vm:ClientChatLobbyViewModel">
+      <views:ClientChatLobbyView />
+    </DataTemplate>
+    <DataTemplate DataType="vm:ClientMatchViewModel">
+      <views:ClientMatchView />
+    </DataTemplate>
+    <DataTemplate DataType="commonVm:LoadingScreenViewModel">
+      <commonViews:LoadingScreenView />
+    </DataTemplate>
+  </Window.DataTemplates>
+
+  <Grid>
+    <ContentControl Content="{Binding CurrentViewModel}" />
+
+    <Border IsVisible="{Binding HasErrorPopup}"
+            Background="#99000000">
+      <Border DataContext="{Binding ErrorPopup}"
+              Classes="settings-section"
+              Width="440"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center">
+        <StackPanel Spacing="14">
+          <TextBlock Text="{Binding Title}"
+                     FontSize="{StaticResource SectionTitleFontSize}"
+                     FontWeight="SemiBold"
+                     Foreground="{DynamicResource AppForegroundBrush}" />
+          <TextBlock Text="{Binding Message}"
+                     TextWrapping="Wrap"
+                     Foreground="{DynamicResource AppForegroundBrush}" />
+          <TextBlock Text="{Binding Details}"
+                     IsVisible="{Binding HasDetails}"
+                     TextWrapping="Wrap"
+                     Foreground="{DynamicResource MutedForegroundBrush}" />
+          <Button Command="{Binding DismissCommand}"
+                  Content="Close"
+                  HorizontalAlignment="Right" />
+        </StackPanel>
+      </Border>
+    </Border>
+  </Grid>
+</Window>

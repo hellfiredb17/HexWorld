@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>HawkNet.CommandLine</AssemblyName>
+    <RootNamespace>HawkNet.CommandLine</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HawkNet\HawkNet.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Config\game-client.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Config\game-server.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

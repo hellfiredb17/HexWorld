@@ -1,0 +1,51 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ClanIronSim.CoreUx.WorldBuilder.ViewModels"
+             xmlns:views="using:ClanIronSim.CoreUx.WorldBuilder.Views"
+             x:Class="ClanIronSim.CoreUx.WorldBuilder.Views.MapTileEditorView"
+             x:DataType="vm:MapTileEditorViewModel">
+  <UserControl.Styles>
+    <Style Selector="RadioButton"><Setter Property="Foreground" Value="#EEF3F7"/></Style>
+    <Style Selector="RadioButton:checked"><Setter Property="Foreground" Value="#EEF3F7"/></Style>
+    <Style Selector="RadioButton:pointerover"><Setter Property="Background" Value="#24303A"/><Setter Property="Foreground" Value="#EEF3F7"/></Style>
+    <Style Selector="RadioButton:pointerover /template/ ContentPresenter#PART_ContentPresenter"><Setter Property="Background" Value="#24303A"/><Setter Property="Foreground" Value="#EEF3F7"/></Style>
+    <Style Selector="RadioButton:checked:pointerover"><Setter Property="Background" Value="#3B4A57"/><Setter Property="Foreground" Value="#EEF3F7"/><Setter Property="BorderBrush" Value="#7DD3FC"/></Style>
+    <Style Selector="RadioButton:checked:pointerover /template/ ContentPresenter#PART_ContentPresenter"><Setter Property="Background" Value="#3B4A57"/><Setter Property="Foreground" Value="#EEF3F7"/><Setter Property="BorderBrush" Value="#7DD3FC"/></Style>
+    <Style Selector="Border.editor-panel"><Setter Property="Background" Value="#171D23"/><Setter Property="BorderBrush" Value="#2B3641"/><Setter Property="BorderThickness" Value="1"/><Setter Property="CornerRadius" Value="7"/><Setter Property="Padding" Value="18"/></Style>
+    <Style Selector="TextBlock.panel-title"><Setter Property="FontSize" Value="17"/><Setter Property="FontWeight" Value="SemiBold"/></Style>
+    <Style Selector="TextBlock.help"><Setter Property="Foreground" Value="#9DACB8"/><Setter Property="FontSize" Value="12"/><Setter Property="TextWrapping" Value="Wrap"/></Style>
+    <Style Selector="RadioButton.shape"><Setter Property="Background" Value="#12181E"/><Setter Property="Foreground" Value="#EEF3F7"/><Setter Property="BorderBrush" Value="#2B3641"/><Setter Property="BorderThickness" Value="1"/><Setter Property="Padding" Value="12"/><Setter Property="CornerRadius" Value="5"/></Style>
+    <Style Selector="RadioButton.shape:checked"><Setter Property="BorderBrush" Value="#38BDF8"/><Setter Property="Foreground" Value="#EEF3F7"/></Style>
+    <Style Selector="Border.tag"><Setter Property="Background" Value="#202A32"/><Setter Property="CornerRadius" Value="5"/><Setter Property="Padding" Value="9,5"/></Style>
+  </UserControl.Styles>
+  <Grid RowDefinitions="62,*,72" Background="#101418">
+    <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="22,0">
+      <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center"><Button Content="‹" Command="{Binding BackCommand}" Padding="10,5"/><TextBlock Text="Tile Editor" FontSize="20" FontWeight="SemiBold"/><TextBlock Text="Define a reusable map tile" Foreground="#9DACB8" VerticalAlignment="Center"/></StackPanel>
+      <Button Grid.Column="1" Content="Load JSON" Click="LoadJsonClicked" VerticalAlignment="Center"/>
+    </Grid>
+
+    <Grid Grid.Row="1" ColumnDefinitions="290,*,350" Margin="18,0" ColumnSpacing="10">
+      <Border Classes="editor-panel"><ScrollViewer><StackPanel Spacing="18">
+        <TextBlock Classes="panel-title" Text="Tile definition"/>
+        <StackPanel Spacing="6"><TextBlock Text="Tile name"/><TextBox Text="{Binding Name}"/><TextBlock Classes="help" Text="A clear name makes this piece easy to reuse."/></StackPanel>
+        <Separator/>
+        <StackPanel Spacing="9"><TextBlock Classes="panel-title" Text="Shape"/><TextBlock Classes="help" Text="Choose the tile geometry."/>
+          <RadioButton Classes="shape" GroupName="shape" Content="Square" IsChecked="{Binding IsSquare}"/>
+          <RadioButton Classes="shape" GroupName="shape" Content="Hex" IsChecked="{Binding IsHex}"/>
+        </StackPanel>
+        <StackPanel Spacing="8" IsVisible="{Binding IsHex}"><TextBlock Text="Hex orientation"/><RadioButton GroupName="orientation" Content="Pointy top" IsChecked="{Binding IsPointy}"/><RadioButton GroupName="orientation" Content="Flat top" IsChecked="{Binding IsFlat}"/></StackPanel>
+        <StackPanel Spacing="8"><TextBlock Classes="panel-title" Text="Tile size"/><TextBlock Classes="help" Text="Measured in whole tiles. Default is 1 × 1."/><Grid ColumnDefinitions="*,12,*"><StackPanel><TextBlock Classes="help" Text="Size X"/><NumericUpDown Value="{Binding SizeX}" Minimum="1" Increment="1" FormatString="0"/></StackPanel><StackPanel Grid.Column="2"><TextBlock Classes="help" Text="Size Y"/><NumericUpDown Value="{Binding SizeY}" Minimum="1" Increment="1" FormatString="0"/></StackPanel></Grid></StackPanel>
+      </StackPanel></ScrollViewer></Border>
+
+      <Border Grid.Column="1" Classes="editor-panel" Padding="0"><Grid RowDefinitions="44,*,Auto">
+        <Grid Margin="16,0" ColumnDefinitions="*,Auto"><TextBlock Text="Tile preview" Classes="panel-title" VerticalAlignment="Center"/><TextBlock Grid.Column="1" Text="100%" Foreground="#9DACB8" VerticalAlignment="Center"/></Grid>
+        <views:MapTilePreviewControl Grid.Row="1" Shape="{Binding Shape}" Orientation="{Binding Orientation}" TileWidth="{Binding SizeX}" TileHeight="{Binding SizeY}" Margin="8" MinHeight="360"/>
+        <StackPanel Grid.Row="2" Margin="16,14" Spacing="10"><TextBlock Text="Tags / themes" Classes="panel-title"/><TextBlock Classes="help" Text="Search and add tags to organize and find this tile."/><Grid ColumnDefinitions="*,Auto" ColumnSpacing="8"><TextBox Text="{Binding TagInput}" PlaceholderText="Add a tag..."/><Button Grid.Column="1" Content="Add" Command="{Binding AddTagCommand}"/></Grid><ItemsControl ItemsSource="{Binding Tags}"><ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel Orientation="Horizontal"/></ItemsPanelTemplate></ItemsControl.ItemsPanel><ItemsControl.ItemTemplate><DataTemplate><Border Classes="tag" Margin="0,0,8,8"><StackPanel Orientation="Horizontal" Spacing="7"><TextBlock Text="{Binding}"/><Button Content="×" Padding="2,0" Background="Transparent" Command="{Binding $parent[UserControl].DataContext.RemoveTagCommand}" CommandParameter="{Binding}"/></StackPanel></Border></DataTemplate></ItemsControl.ItemTemplate></ItemsControl></StackPanel>
+      </Grid></Border>
+
+      <Border Grid.Column="2" Classes="editor-panel"><Grid RowDefinitions="Auto,*,Auto"><StackPanel Spacing="5"><TextBlock Classes="panel-title" Text="Attributes"/><TextBlock Classes="help" Text="Stack attributes to define how this tile affects gameplay."/></StackPanel><ScrollViewer Grid.Row="1" Margin="0,14,0,8"><ItemsControl ItemsSource="{Binding Attributes}"><ItemsControl.ItemTemplate><DataTemplate x:DataType="vm:MapTileAttributeViewModel"><Border BorderBrush="#2B3641" BorderThickness="1" CornerRadius="6" Padding="12" Margin="0,0,0,10"><StackPanel Spacing="9"><Grid ColumnDefinitions="*,Auto"><TextBlock Text="Attribute" FontWeight="SemiBold"/><Button Grid.Column="1" Content="Remove" Classes="danger" Padding="8,4" Command="{Binding $parent[UserControl].DataContext.RemoveAttributeCommand}" CommandParameter="{Binding}"/></Grid><ComboBox ItemsSource="{Binding $parent[UserControl].DataContext.AttributeTypes}" SelectedItem="{Binding Type}"/><TextBlock Classes="help" Text="{Binding Effect}"/><StackPanel IsVisible="{Binding IsMovement}" Spacing="5"><TextBlock Text="Movement modifier"/><NumericUpDown Value="{Binding Amount}" Minimum="-20" Maximum="20" Increment="1"/></StackPanel><CheckBox IsVisible="{Binding IsBlocking}" IsChecked="True" Content="Blocked" IsEnabled="False"/></StackPanel></Border></DataTemplate></ItemsControl.ItemTemplate></ItemsControl></ScrollViewer><Button Grid.Row="2" Content="＋  Add attribute" Command="{Binding AddAttributeCommand}" HorizontalAlignment="Stretch"/></Grid></Border>
+    </Grid>
+
+    <Grid Grid.Row="2" ColumnDefinitions="*,Auto,Auto" Margin="22,10" ColumnSpacing="10"><TextBlock Text="{Binding StatusMessage}" Foreground="#9DACB8" VerticalAlignment="Center"/><Button Grid.Column="1" Content="Save JSON" Click="SaveJsonClicked"/><Button Grid.Column="2" Content="Apply tile" Classes="primary" Click="ApplyTileClicked"/></Grid>
+  </Grid>
+</UserControl>
